@@ -20,7 +20,6 @@ const Menu = ({ className }) => {
           <header className="category__header">
             <h2 className="category__title">
               <VisuallyHidden>{category.name}</VisuallyHidden>
-
               <FloatingWord word={category.name} />
             </h2>
           </header>
@@ -106,7 +105,6 @@ export default styled(Menu)(
       font-size: 4rem;
       ${spacing.xs('mt')};
       font-style: italic;
-      font-weight: 400;
     }
   `
 )
