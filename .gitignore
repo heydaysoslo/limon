@@ -7,12 +7,13 @@ node_modules/
 # lerna files
 /lerna-debug.log
 
-# Gatsby
-.cache
-/web/public
-
 # Env files
 .env
+.env-development
+.env-production
+
+# next.js build output
+.next
 
 # Theme
 # /gatsby-theme-heydays
