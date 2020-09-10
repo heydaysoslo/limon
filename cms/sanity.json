@@ -1,0 +1,58 @@
+{
+  "root": true,
+  "api": {
+    "projectId": "4rb6li7b",
+    "dataset": "production"
+  },
+  "project": {
+    "name": "Next starter"
+  },
+  "env": {
+    "development": {
+      "api": {
+        "dataset": "production"
+      }
+    }
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/components",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/dashboard",
+    "@sanity/desk-tool",
+    "dashboard-widget-structure-menu",
+    "dashboard-widget-document-list",
+    "dashboard-widget-netlify",
+    "@sanity/vision",
+    "@sanity/production-preview",
+    "tabs",
+    "asset-source-cloudinary-test"
+  ],
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema.js"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./deskStructure.js"
+    },
+    {
+      "implements": "part:@sanity/dashboard/config",
+      "path": "./dashboardConfig.js"
+    },
+    {
+      "implements": "part:@sanity/base/brand-logo",
+      "path": "./custom/components/Logo.js"
+    },
+    {
+      "implements": "part:@sanity/base/theme/variables/override-style",
+      "path": "./custom/styles/cms.css"
+    },
+    {
+      "implements": "part:@sanity/production-preview/resolve-production-url",
+      "path": "./resolveProductionUrl.js"
+    }
+  ]
+}
