@@ -69,6 +69,8 @@ const Scene = ({ wrapper, words, noHinders }) => {
         }
       })
 
+      Render.setPixelRatio(render, window.devicePixelRatio)
+
       // add mouse control
       const mouse = Mouse.create(render.canvas)
       const mouseConstraint = MouseConstraint.create(engine, {
@@ -228,8 +230,6 @@ const Scene = ({ wrapper, words, noHinders }) => {
           bodies[0].render.sprite.texture = bodies[0].words.hoverImage
         }
       })
-      mouse.element.removeEventListener('mousewheel', mouse.mousewheel)
-      mouse.element.removeEventListener('DOMMouseScroll', mouse.mousewheel)
 
       // Push ball
       // Body.setVelocity(ballA, { x: 2, y: 3 });
