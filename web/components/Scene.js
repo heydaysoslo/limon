@@ -231,6 +231,9 @@ const Scene = ({ wrapper, words, noHinders }) => {
         }
       })
 
+      mouse.element.removeEventListener('mousewheel', mouse.mousewheel)
+      mouse.element.removeEventListener('DOMMouseScroll', mouse.mousewheel)
+
       // Push ball
       // Body.setVelocity(ballA, { x: 2, y: 3 });
       // add mouse control
