@@ -55,7 +55,7 @@ export const globalTypeStyle = ({ theme }) => css`
   h2,
   h3,
   h4 {
-    /* font-weight: bold; */
+    font-weight: normal;
   }
 
   body {
