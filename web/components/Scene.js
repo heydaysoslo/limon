@@ -231,6 +231,9 @@ const Scene = ({ wrapper, words, noHinders }) => {
         }
       })
 
+      mouse.element.removeEventListener('touchstart', mouse.mousewheel)
+      mouse.element.removeEventListener('touchmove', mouse.mousewheel)
+      mouse.element.removeEventListener('touchend', mouse.mousewheel)
       mouse.element.removeEventListener('mousewheel', mouse.mousewheel)
       mouse.element.removeEventListener('DOMMouseScroll', mouse.mousewheel)
 
