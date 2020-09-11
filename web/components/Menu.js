@@ -1,13 +1,13 @@
+import Button from '@heydays/Button'
 import Loader from '@heydays/Loader'
 import { H2 } from '@heydays/Typography'
 import useFetch from '@heydays/useFetch'
 import VisuallyHidden from '@heydays/VisuallyHidden'
 import React from 'react'
 import styled, { css, useTheme } from 'styled-components'
-import { spacing, fonts } from 'styles/utilities'
+import { fonts, spacing } from 'styles/utilities'
 import { bp } from '../styles/utilities'
 import FloatingWord from './FloatingWord'
-import Button from '@heydays/button'
 
 const Menu = ({ className }) => {
   const { response, isLoading, error } = useFetch(
