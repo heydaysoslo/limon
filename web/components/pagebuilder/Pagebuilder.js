@@ -11,6 +11,7 @@ import VideoSection from './VideoSection'
 import Tabs from '../elements/Tabs'
 import { spacing } from '../../styles/utilities'
 import Stagger from '@heydays/animation/Stagger'
+import Menu from '../Menu'
 
 const sectionTypes = {
   section: Section,
@@ -20,7 +21,8 @@ const sectionTypes = {
   textImageSplit: TextImageSplit,
   carousel: dynamic(() => import('./CarouselSection')),
   tabs: Tabs,
-  videoSection: VideoSection
+  videoSection: VideoSection,
+  menu: Menu
 }
 
 const StyledPageBuilder = styled.div`

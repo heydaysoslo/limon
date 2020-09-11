@@ -3,15 +3,17 @@ import { H2 } from '@heydays/Typography'
 import useFetch from '@heydays/useFetch'
 import VisuallyHidden from '@heydays/VisuallyHidden'
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import { spacing, fonts } from 'styles/utilities'
 import { bp } from '../styles/utilities'
 import FloatingWord from './FloatingWord'
+import Button from '@heydays/button'
 
 const Menu = ({ className }) => {
   const { response, isLoading, error } = useFetch(
     'https://snappo.com/api/restaurant/21908/webshop_menu_8/en/22009.37/0'
   )
+  const theme = useTheme()
   if (isLoading) return <Loader />
   return (
     <div className={className} id="menuAnchor">
@@ -44,6 +46,11 @@ const Menu = ({ className }) => {
             Sulfitter
           </p>
         </div>
+      </div>
+      <div className="actions">
+        <Button style={{ width: '100%' }}>
+          <FloatingWord word="Bestill" color={theme.colors.background} />
+        </Button>
       </div>
     </div>
   )
@@ -105,6 +112,9 @@ export default styled(Menu)(
       font-size: 4rem;
       ${spacing.xs('mt')};
       font-style: italic;
+    }
+    .actions {
+      ${spacing.section('mt')};
     }
   `
 )

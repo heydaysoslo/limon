@@ -39,7 +39,10 @@ export const getAspect = ratio => {
   }
 }
 
-export const getImageSrc = ({ public_id, format }, aspectRatio) => {
+export const getImageSrc = (image, aspectRatio) => {
+  console.log('getImageSrc -> image', image)
+  const { public_id, format } = image
+  console.log('getImageSrc -> public_id', public_id)
   let transformations = 'f_auto,q_auto'
   if (aspectRatio) {
     transformations += `,ar_${getAspect(aspectRatio)},c_fill`
@@ -69,6 +72,7 @@ export const getImageSrc = ({ public_id, format }, aspectRatio) => {
       https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_1024/${public_id} 1024w,
       https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_1280/${public_id} 1280w
     `,
+    src: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto,w_500,h_500/${public_id}`,
     noscript: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_1280/${public_id}`
   }
 }

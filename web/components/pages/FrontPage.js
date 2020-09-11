@@ -2,23 +2,18 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 import Pagebuilder from '../pagebuilder/Pagebuilder'
-import { H1, P } from '@heydays/Typography'
 import Container from '@heydays/Container'
 import { spacing } from '../../styles/utilities'
 import Hero from '../Hero'
-import Menu from '../Menu'
 
-const FrontPage = ({ className, title, content, pagebuilder, ...props }) => {
+const FrontPage = ({ className, pagebuilder, title }) => {
   return (
     <div className={className}>
       <Container className="Page__container">
         <Hero />
-        <Menu />
-        {pagebuilder && (
+        {pagebuilder?.sections && (
           <div className="Page__content">
-            {pagebuilder?.sections && (
-              <Pagebuilder sections={pagebuilder.sections} />
-            )}
+            <Pagebuilder sections={pagebuilder.sections} />
           </div>
         )}
       </Container>

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
 import Link from 'next/link'
 import Switch from '@heydays/Switch'
@@ -6,16 +6,17 @@ import Container from './elements/Container'
 import Logo from './Logo'
 
 const Header = ({ className, isDark, setIsDark }) => {
-  useLayoutEffect(() => {
-    const height = document
-      ?.querySelector('#menuHeight')
-      ?.getBoundingClientRect()?.height
+  const header = useRef(null)
+
+  useEffect(() => {
+    const height = header?.current?.getBoundingClientRect()?.height
+    console.log('Header -> height', height)
     document.documentElement.style.setProperty('--headerHeight', height + 'px')
-  }, [])
+  }, [header])
 
   return (
     <Container>
-      <div className={className} id="menuHeight">
+      <div className={className} ref={header}>
         <div></div>
         <h1>
           <Link href="/">

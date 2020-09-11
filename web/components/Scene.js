@@ -7,10 +7,9 @@ import useInterval from '@heydays/useInterval'
 import useWindowSize from '@heydays/useWindowSize'
 import { random, createImage } from '../utils/helpers'
 import VisuallyHidden from '@heydays/VisuallyHidden'
-import theme from '../styles/themes'
 import { useTheme } from 'styled-components'
 
-const Scene = ({ wrapper, words, noHinders }) => {
+const Scene = ({ wrapper, words, noHinders, color }) => {
   const container = useRef(null)
   const [matterEngine, setMatterEngine] = useState(null)
   const [lastSize, setLastSize] = useState(null)
@@ -21,13 +20,10 @@ const Scene = ({ wrapper, words, noHinders }) => {
 
   useInterval(() => {
     if (matterEngine) {
-      const rn = random(-0.1, 0.1, { float: true })
-      console.log('Scene -> rn', rn)
-      matterEngine.world.gravity.x = rn
-      matterEngine.world.gravity.y = rn
-      //matterEngine.world.gravity.scale = random(-0.003, 0.0003)
+      matterEngine.world.gravity.x = random(-0.2, 0.2, { float: true })
+      matterEngine.world.gravity.y = random(-0.2, 0.2, { float: true })
     }
-  }, 1000)
+  }, 2000)
 
   useEffect(() => {
     let engine
@@ -50,8 +46,8 @@ const Scene = ({ wrapper, words, noHinders }) => {
       engine = Engine.create({})
       setMatterEngine(engine)
       const rn = random(-0.1, 0.1)
-      engine.world.gravity.x = rn
-      engine.world.gravity.y = rn
+      engine.world.gravity.x = 1
+      engine.world.gravity.y = 1
 
       const { width, height } = wrapper.current.getBoundingClientRect()
 
@@ -75,6 +71,7 @@ const Scene = ({ wrapper, words, noHinders }) => {
       const mouse = Mouse.create(render.canvas)
       const mouseConstraint = MouseConstraint.create(engine, {
         mouse: mouse,
+        passive: true,
         constraint: {
           stiffness: 0.2,
           render: {
@@ -88,7 +85,7 @@ const Scene = ({ wrapper, words, noHinders }) => {
       }
       const hinderOptions = angle => ({
         render: {
-          fillStyle: 'red',
+          fillStyle: 'transparent',
           strokeStyle: 'none',
           lineWidth: 0
         },
@@ -108,7 +105,7 @@ const Scene = ({ wrapper, words, noHinders }) => {
         createImage(
           word,
           Math.max(50, Math.min(width / 10, 200)),
-          theme.colors.text
+          color || theme.colors.text
         )
       )
       const newBodies = images.map((word, i) =>
@@ -140,7 +137,6 @@ const Scene = ({ wrapper, words, noHinders }) => {
       //   Body.setMass(body, random(0, 10))
       //   Body.setDensity(body, random(0, 10))
       // })
-      console.log(Body)
       World.add(engine.world, [
         // walls
         //Top

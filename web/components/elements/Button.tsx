@@ -1,6 +1,7 @@
 import React from 'react'
 import { applyStyleModifiers } from 'styled-components-modifiers'
 import styled, { css } from 'styled-components'
+import { color } from '../../styles/utilities'
 
 type Modifiers = 'secondary' | 'small'
 
@@ -43,14 +44,16 @@ export default styled(Button)(
     appearance: none;
     background: none;
     display: inline-block;
-    border: 1px solid ${theme.colors.border};
+    border: 2px solid transparent;
+    background-color: ${theme.colors.text};
+    color: ${theme.colors.background};
     font-size: 2rem;
     padding: 20px;
     transition: 0.15s ease background-color, color;
+    cursor: pointer;
 
     &:hover {
-      background-color: black;
-      color: white;
+      background-color: ${color.lighten(theme.colors.text, 0.2)};
     }
 
     ${applyStyleModifiers(BUTTON_MODIFIERS)}

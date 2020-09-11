@@ -7,6 +7,8 @@ import Grid from '@heydays/Grid'
 import styled, { css } from 'styled-components'
 import { spacing } from '../../styles/utilities'
 import CloudinaryMediaResolver from '../resolvers/CloudinaryMediaResolver'
+import { getImageSrc } from '../../utils/cloudinary'
+import FloatingImage from '../FloatingImage'
 
 const TextImageSplit = ({
   textOnTheRight = false,
@@ -37,11 +39,14 @@ const TextImageSplit = ({
         </div>
         <div className="image">
           {image && (
-            <CloudinaryMediaResolver
-              className="TextImageSplit__image"
-              node={image}
-              aspectRatio={aspect}
-            />
+            <>
+              {/* <CloudinaryMediaResolver
+                className="TextImageSplit__image"
+                node={image}
+                aspectRatio={aspect}
+              /> */}
+              <FloatingImage image={image.cldImage} />
+            </>
           )}
         </div>
       </Grid>

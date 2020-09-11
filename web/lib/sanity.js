@@ -56,6 +56,35 @@ export const getFrontpage = () => {
   return client.fetch(query)
 }
 
+export const getSettings = () => {
+  const query = `*[_type == 'siteSettings']{
+    ...,
+    primaryMenu->{
+      ...
+    },
+    secondaryMenu->{
+      ...
+    },
+    frontpage->{
+      ...
+    },
+    privacypage->{
+      ...
+    }
+  }`
+  return client.fetch(query)
+}
+
+export const getCompanyInfo = () => {
+  const query = `*[_type == 'companyInfo']`
+  return client.fetch(query)
+}
+
+export const getGlobalSettings = () => {
+  const query = `*[_type == 'global']`
+  return client.fetch(query)
+}
+
 export const getArticles = () => {
   const query = `*[_type == 'article'] {
     ${BASE_ARTICLE},
