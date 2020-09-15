@@ -1,7 +1,9 @@
 import React, { useRef } from 'react'
 import styled, { css } from 'styled-components'
-import Scene from './Scene'
 import useIsFontLoaded from './hooks/useIsFontLoaded'
+import dynamic from 'next/dynamic'
+
+const Scene = dynamic(() => import('./Scene'))
 
 const Hero = ({ className }) => {
   const hero = useRef(null)

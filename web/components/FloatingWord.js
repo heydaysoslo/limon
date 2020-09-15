@@ -1,6 +1,8 @@
 import React, { useRef } from 'react'
 import styled, { css } from 'styled-components'
-import Scene from './Scene'
+import dynamic from 'next/dynamic'
+
+const Scene = dynamic(() => import('./Scene'))
 
 const FloatingWord = ({ className, word, color }) => {
   const wrapper = useRef(null)

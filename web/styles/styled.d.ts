@@ -13,7 +13,7 @@ declare module 'styled-components' {
       border?: string
       background?: string
     }
-    breakpoints: Breakpoints
+    breakpoints: BreakPoints
     spacingUnit: {
       xs?: string
       sm?: string

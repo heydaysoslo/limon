@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import useInterval from '@heydays/useInterval'
 /**
  * This requires the use of webFontloader which adds classes to the html class
  *

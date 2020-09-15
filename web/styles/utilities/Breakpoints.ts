@@ -1,4 +1,4 @@
-import { css } from 'styled-components'
+import { css, CSSObject } from 'styled-components'
 import { breakpoints } from '../themes'
 import { emSize } from './Converters'
 
@@ -33,42 +33,43 @@ import { emSize } from './Converters'
  */
 
 // iterate through the breakpoints and create a media template
-const above = Object.keys(breakpoints).reduce((accumulator, bp) => {
+const above = Object.keys(breakpoints).reduce((acc, bp) => {
   // use em in breakpoints to work properly cross-browser and support users
   // changing their browsers font-size: https://zellwk.com/blog/media-query-units/
-  accumulator[bp] = (...args) => {
+  // typescript fix https://stackoverflow.com/questions/49397538/typing-the-css-function-in-styled-components
+  acc[bp] = (literals: TemplateStringsArray, ...args: any[]) => {
     return function(props) {
       if (props.theme.breakpoints[bp] === 0) {
         return css`
-          ${css(...args)};
+          ${css(literals, ...args)};
         `
       } else {
         return css`
           @media (min-width: ${emSize(props.theme.breakpoints[bp])}) {
-            ${css(...args)};
+            ${css(literals, ...args)};
           }
         `
       }
     }
   }
-  return accumulator
-}, {})
+  return acc
+}, {} as Record<keyof typeof breakpoints, (l: TemplateStringsArray, ...args: any[]) => string>)
 
 // iterate through the breakpoints and create a media template
 const below = Object.keys(breakpoints).reduce((accumulator, bp) => {
   // use em in breakpoints to work properly cross-browser and support users
   // changing their browsers font-size: https://zellwk.com/blog/media-query-units/
-  accumulator[bp] = (...args) => {
+  accumulator[bp] = (literals: TemplateStringsArray, ...args: any[]) => {
     return function(props) {
       return css`
         @media (max-width: ${emSize(props.theme.breakpoints[bp])}) {
-          ${css(...args)};
+          ${css(literals, ...args)};
         }
       `
     }
   }
   return accumulator
-}, {})
+}, {} as Record<keyof typeof breakpoints, (l: TemplateStringsArray, ...args: any[]) => string>)
 
 /**
  *
@@ -82,7 +83,10 @@ const below = Object.keys(breakpoints).reduce((accumulator, bp) => {
  * @param {string} min string needs to relate to a key in theme.breakpoints
  * @param {string} max string needs to relate to a key in theme.breakpoints
  */
-const between = (min, max) => (...args) => {
+const between = (min, max) => (
+  literals: TemplateStringsArray,
+  ...args: any[]
+) => {
   return function({ theme: { breakpoints } }) {
     if (!min || !max) {
       console.info('Either the min or max props is missing')
@@ -96,14 +100,14 @@ const between = (min, max) => (...args) => {
       @media (min-width: ${emSize(breakpoints[min])}) and (max-width: ${emSize(
           breakpoints[maxKey]
         )}) {
-        ${css(...args)}
+        ${css(literals, ...args)}
       }
     `
   }
 }
 
 const only = Object.keys(breakpoints).reduce((acc, bp, i) => {
-  acc[bp] = (...args) => {
+  acc[bp] = (literals: TemplateStringsArray, ...args: any[]) => {
     return function(props) {
       return css`
         @media (min-width: ${emSize(
@@ -111,13 +115,13 @@ const only = Object.keys(breakpoints).reduce((acc, bp, i) => {
           )}) and (max-width: ${emSize(
             props.theme.breakpoints[Object.keys(props.theme.breakpoints)[i + 1]]
           )}) {
-          ${css(...args)}
+          ${css(literals, ...args)}
         }
       `
     }
   }
   return acc
-}, {})
+}, {} as Record<keyof typeof breakpoints, (l: TemplateStringsArray, ...args: any[]) => string>)
 
 /**
  * Breakpoint handler for a set of styles for a spesific breakpoints. Ex. no margin on xs and md
@@ -129,17 +133,22 @@ const only = Object.keys(breakpoints).reduce((acc, bp, i) => {
 
  * @param {string} breakpointsString string of comma separated breakpoints ex. 'md,xl'
  */
-const spesific = breakpointsString => (...args) => {
+const spesific = breakpointsString => (
+  literals: TemplateStringsArray,
+  ...args: any[]
+) => {
   if (typeof breakpointsString !== 'string') {
     console.info(
       `The bp.spesific funtion expects a string separated by comma if you have multiple breakpoints. Ex: 'sm,lg'`
     )
   }
-  const breakpoints = breakpointsString.split(',').map(string => string.trim())
+  const breakpoints = breakpointsString
+    .split(',')
+    .map((string: string) => string.trim())
   if (breakpoints.length === 1) {
     return css`
       ${only[breakpoints[0]]`
-      ${css(...args)}
+      ${css(literals, ...args)}
     `}
     `
   } else {
@@ -147,7 +156,7 @@ const spesific = breakpointsString => (...args) => {
       ${breakpoints.map(
         bp => css`
           ${only[bp]`
-            ${css(...args)}
+            ${css(literals, ...args)}
           `}
         `
       )}

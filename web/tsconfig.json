@@ -14,6 +14,12 @@
       ],
       "@cms": ["lib/sanity"]
     },
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin",
+        "tags": ["styled", "css", "md", "bp", "bp.above", "bp.above.md"]
+      }
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "downlevelIteration": true,
@@ -28,6 +34,6 @@
     "noEmit": true,
     "jsx": "preserve"
   },
-  "include": ["./src/**/*"],
+  "include": ["**/*"],
   "exclude": ["node_modules"]
 }

@@ -1,4 +1,6 @@
 import { CSSProp } from 'styled-components'
+// https://styled-components.com/docs/api#usage-with-typescript
+import {} from 'styled-components/cssprop'
 
 export type FlexBoxAlignItems =
   | 'flex-start'

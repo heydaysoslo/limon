@@ -1,7 +1,6 @@
 import React from 'react'
-import { applyStyleModifiers } from 'styled-components-modifiers'
 import styled, { css } from 'styled-components'
-import { color } from '../../styles/utilities'
+import { bp, color } from '../../styles/utilities'
 
 type Modifiers = 'secondary' | 'small'
 
@@ -24,23 +23,8 @@ const Button: React.FC<Props> = ({ children, className, ...props }) => {
   )
 }
 
-const BUTTON_MODIFIERS = {
-  secondary: () => css`
-    background: orange;
-    border-color: orange;
-
-    &:hover {
-      background-color: none;
-      color: orange;
-    }
-  `,
-  small: () => css`
-    padding: 10px;
-  `
-}
-
-export default styled(Button)(
-  ({ theme }) => css`
+export default styled(Button)<Props>(
+  ({ theme, modifiers }) => css`
     appearance: none;
     background: none;
     display: inline-block;
@@ -56,6 +40,19 @@ export default styled(Button)(
       background-color: ${color.lighten(theme.colors.text, 0.2)};
     }
 
-    ${applyStyleModifiers(BUTTON_MODIFIERS)}
+    ${bp.above.md`
+      background: orange;
+    `}
+
+    ${modifiers?.includes('small') &&
+      css`
+        padding: 0;
+      `}
+
+    ${modifiers?.includes('secondary') &&
+      css`
+        color: ${theme.colors.primary};
+        background-color: ${theme.colors.secondary};
+      `}
   `
 )
