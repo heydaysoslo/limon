@@ -1,4 +1,4 @@
-import { aspect } from '../styles/themes'
+import { aspect } from 'styles/themes/defaultTheme'
 
 export const CLOUDINARY_CLOUD_NAME = 'heydaysoslo'
 

@@ -9,7 +9,8 @@ import 'lazysizes'
 
 import '../styles/reset.css'
 
-import theme, { darkTheme } from 'styles/themes'
+import theme from 'styles/themes/defaultTheme'
+import darkTheme from 'styles/themes/darkTheme'
 import Header from 'components/Header'
 import SEO from 'components/SEO'
 import Footer from '../components/Footer'

@@ -1,74 +1,66 @@
+// import {} from 'styled-components'
+// import theme from '../themes/DefaultTheme'
+// declare module 'styled-components' {
+//   type Theme = typeof theme
+//   export interface DefaultTheme extends Theme {}
+// }
+
 // import original module declarations
 import 'styled-components'
-import { BorderProps, BreakPoints, responsiveFontDeclaration } from '../types'
+// https://styled-components.com/docs/api#usage-with-typescript
+import {} from 'styled-components/cssprop'
+import { FlattenSimpleInterpolation } from 'styled-components'
+import {
+  SpacingFuncs,
+  spacingFuncs,
+  SpacingFuncsWithFunc,
+  SpacingSizes
+} from './utilities/spacingFactory'
+import { fontFuncs } from './utilities/fontFactory'
+import {
+  responsiveFonts,
+  breakpoints,
+  contentWidth,
+  colors,
+  aspect,
+  fontFamily,
+  icons,
+  trans,
+  borderWidth
+} from './themes/defaultTheme'
+import { bp, BreakpointSizes } from './utilities/breakpointsFactory'
+import color from './utilities/Colors'
 
 // and extend them!
 declare module 'styled-components' {
   export interface DefaultTheme {
-    colors: {
-      main?: string
-      primary?: string
-      secondary?: string
-      text?: string
-      border?: string
-      background?: string
+    colors: typeof colors
+    color: typeof color
+    breakpoints: typeof breakpoints
+    bp: bp
+    spacingUnit?: {
+      [size in spacing]: string
     }
-    breakpoints: BreakPoints
-    spacingUnit: {
-      xs?: string
-      sm?: string
-      md?: string
-      lg?: string
-      xl?: string
-      section?: string
-      gutter?: string
+    spacing: SpacingFuncsWithFunc
+    responsiveSpacing: {
+      [size in SpacingSizes]: {
+        [bp in BreakpointSizes]?: spacing | string
+      }
     }
-    spacing?: {
-      xs?: (props?: string) => void | any
-      sm?: (props?: string) => void | any
-      md?: (props?: string) => void | any
-      lg?: (props?: string) => void | any
-      xl?: (props?: string) => void | any
-      section?: (props?: string) => void | any
-      gutter?: (props?: string) => void | any
-    }
+    responsiveFonts?: ResponsiveFonts
     grid?: {
       columns: number
     }
-    fontFamily: {
-      sans?: string
-      serif?: string
-    }
-    responsiveFonts: responsiveFontDeclaration
-    aspect: {
-      portrait?: number
-      landscape?: number
-      square?: number
-      widescreen?: number
-      panorama?: number
-    }
-    contentWidth: {
-      small?: string
-      large?: string
-      text?: string
-      image?: string
-    }
-    icons: {
-      small?: string
-      medium?: string
-      large?: string
-    }
-    trans: {
-      fast?: string
-      slow?: string
-    }
-    borderWidth: {
-      small?: string
-      large?: string
-    }
+    fontFamily: typeof fontFamily
+    fonts: fontFuncs
+    aspect: typeof aspect
+    contentWidth: typeof contentWidth
+    icons: typeof icons
+    trans: typeof trans
+    borderWidth: typeof borderWidth
     border: {
-      small?: (prop: BorderProps) => ({ theme: DefaultTheme }) => void
-      large?: (prop: BorderProps) => ({ theme: DefaultTheme }) => void
+      small?: () => ({ theme: DefaultTheme }) => string
+      large?: () => ({ theme: DefaultTheme }) => string
     }
     defaultStyle?: ({ theme }: { theme: DefaultTheme | undefined }) => void
   }

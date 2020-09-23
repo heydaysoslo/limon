@@ -21,7 +21,6 @@ import styled, { css } from 'styled-components'
 
 import keyCodes from '../../utils/keyCodes'
 
-import { color, spacing } from '../../styles/utilities'
 import { H3 } from '@heydays/Typography'
 import Editor from '../editor'
 
@@ -171,14 +170,14 @@ const AccordionItem = ({
 const StyledAccordion = styled(Accordion)(({ theme }) => css``)
 
 StyledAccordion.Item = styled(AccordionItem)(
-  ({ theme, active, exclusive, i }) => {
+  ({ theme: t, active, exclusive, i }) => {
     const isActive = exclusive ? active === i : active.includes(i)
     return css`
-      ${theme.border.large('border-bottom')};
+      ${t.border.large('border-bottom')};
       border-color: ${isActive
-        ? theme.colors.primary
-        : color.darken(theme.colors.primary, 0.2)};
-      transition: border-color ${theme.trans.fast}, color ${theme.trans.fast};
+        ? t.colors.primary
+        : color.darken(t.colors.primary, 0.2)};
+      transition: border-color ${t.trans.fast}, color ${t.trans.fast};
 
       .trigger {
         display: flex;
@@ -186,47 +185,47 @@ StyledAccordion.Item = styled(AccordionItem)(
         justify-content: space-between;
         width: 100%;
         text-align: left;
-        ${spacing.xs('py')};
+        ${t.spacing.xs('py')};
 
         .title {
-          font-family: ${theme.fontFamily.sans};
+          font-family: ${t.fontFamily.sans};
           color: ${isActive
-            ? theme.colors.primary
-            : color.darken(theme.colors.primary, 0.2)};
+            ? t.colors.primary
+            : t.color.darken(t.colors.primary, 0.2)};
         }
 
         &:focus {
           outline: none;
-          background: ${theme.colors.primary};
+          background: ${t.colors.primary};
         }
       }
 
       .icon {
-        width: ${theme.icons.small};
-        height: ${theme.icons.small};
-        ${spacing.sm('mr')};
+        width: ${t.icons.small};
+        height: ${t.icons.small};
+        ${t.spacing.sm('mr')};
         line {
           stroke: ${isActive
-            ? theme.colors.primary
-            : color.darken(theme.colors.primary, 0.2)};
+            ? t.colors.primary
+            : t.color.darken(t.colors.primary, 0.2)};
         }
       }
 
       .content {
         display: ${isActive ? 'block' : 'none'};
-        ${spacing.sm('px')}
-        ${spacing.md('pb')}
+        ${t.spacing.sm('px')}
+        ${t.spacing.md('pb')}
       }
 
       &:hover {
-        border-color: ${color.darken(theme.colors.primary, 0.5)};
+        border-color: ${color.darken(t.colors.primary, 0.5)};
         .trigger .title {
-          color: ${color.darken(theme.colors.primary, 0.5)};
+          color: ${color.darken(t.colors.primary, 0.5)};
         }
 
         .icon {
           line {
-            stroke: ${color.darken(theme.colors.primary, 0.5)};
+            stroke: ${color.darken(t.colors.primary, 0.5)};
           }
         }
       }

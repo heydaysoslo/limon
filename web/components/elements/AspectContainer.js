@@ -1,8 +1,7 @@
 import React, { useRef, useLayoutEffect, useState, useMemo } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import useMediaQuery from '../hooks/useMediaQuery'
 import useWindowSize from '../hooks/useWindowSize'
-import { breakpoints } from '../../styles/themes'
 
 const StyledAspectContainer = styled.div`
   position: relative;
@@ -34,8 +33,8 @@ const AspectContainer = ({
   const contentEl = useRef(null)
   const wrapperEl = useRef(null)
   const [currentRatio, setCurrentRatio] = useState(1)
+  const { breakpoints } = useTheme()
 
-  // Compute a full set of ratios based on breakpoints
   const computeRatios = () => {
     let calculatedRatios = {}
     let prevRatio = aspects[Object.keys(breakpoints)[0]]

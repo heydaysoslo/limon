@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import keyCodes from '../../utils/keyCodes'
 
 import Editor from '../editor'
-import { bp, remSize } from '../../styles/utilities'
+import { remSize } from '../../styles/utilities'
 
 /**
  * https://www.w3.org/TR/wai-aria-practices/examples/tabs/tabs-1/tabs.html
@@ -168,9 +168,9 @@ StyledTabs.Trigger = styled(TabTrigger)(
     flex-grow: 1;
     background: ${isTabActive ? theme.colors.primary : theme.colors.secondary};
 
-    ${bp.above.lg`
+    ${theme.bp.above.lg} {
       flex-grow: 0;
-    `}
+    }
   `
 )
 

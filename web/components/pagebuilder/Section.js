@@ -2,7 +2,6 @@ import React from 'react'
 import Editor from '../editor/'
 import { P, H3 } from '@heydays/Typography'
 import styled, { css } from 'styled-components'
-import { spacing } from '../../styles/utilities'
 import LinkResolver from '@heydays/LinkResolver'
 
 const Section = ({ label, title, content, link, className }) => {
@@ -26,7 +25,7 @@ export default styled(Section)(
   ({ theme }) => css`
     text-align: center;
     .button {
-      ${spacing.md('mt')}
+      ${theme.spacing.md('mt')}
     }
   `
 )

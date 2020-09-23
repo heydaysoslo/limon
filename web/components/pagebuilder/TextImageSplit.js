@@ -5,7 +5,6 @@ import LinkResolver from '@heydays/LinkResolver'
 import { H3 } from '@heydays/Typography'
 import Grid from '@heydays/Grid'
 import styled, { css } from 'styled-components'
-import { spacing } from '../../styles/utilities'
 import CloudinaryMediaResolver from '../resolvers/CloudinaryMediaResolver'
 import { getImageSrc } from '../../utils/cloudinary'
 import FloatingImage from '../FloatingImage'
@@ -57,10 +56,10 @@ const TextImageSplit = ({
 export default styled(TextImageSplit)(
   ({ theme }) => css`
     .TextImageSplit__content {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
     .TextImageSplit__button {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
   `
 )

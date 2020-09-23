@@ -14,12 +14,6 @@
       ],
       "@cms": ["lib/sanity"]
     },
-    "plugins": [
-      {
-        "name": "typescript-styled-plugin",
-        "tags": ["styled", "css", "md", "bp", "bp.above", "bp.above.md"]
-      }
-    ],
     "allowJs": true,
     "skipLibCheck": true,
     "downlevelIteration": true,

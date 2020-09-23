@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components'
 
 import Pagebuilder from '../pagebuilder/Pagebuilder'
 import Container from '@heydays/Container'
-import { spacing } from '../../styles/utilities'
 import Hero from '../Hero'
 
 const FrontPage = ({ className, pagebuilder, title }) => {
@@ -24,10 +23,10 @@ const FrontPage = ({ className, pagebuilder, title }) => {
 export default styled(FrontPage)(
   ({ theme }) => css`
     .Page__header {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
     .Page__content {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
   `
 )

@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components'
 import Link from 'next/link'
 import Icon from './elements/Icon'
 import useSanity from './hooks/useSanity'
-import { spacing } from '../styles/utilities/Spacing'
 import Container from '@heydays/Container'
 
 const Footer = ({ className }) => {
@@ -36,16 +35,16 @@ const Footer = ({ className }) => {
 }
 
 export default styled(Footer)(
-  ({ theme }) => css`
-    ${spacing.section('mt,py')};
-    background-color: ${theme.colors.text};
-    color: ${theme.colors.background};
+  ({ theme: t }) => css`
+    ${t.spacing.section(['mt', 'py'])};
+    background-color: ${t.colors.text};
+    color: ${t.colors.background};
 
     .social-link {
       display: inline-block;
-      color: ${theme.colors.background};
+      color: ${t.colors.background};
       width: 100px;
-      transition: ${theme.trans.fast};
+      transition: ${t.trans.fast};
 
       &:hover {
         opacity: 0.5;

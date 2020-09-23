@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
-import { bp, spacing, color, remSize } from '../../styles/utilities'
+import { remSize } from '../../styles/utilities'
 
 const defaultOptions = {
   // groupCells: true,
@@ -245,15 +245,15 @@ export default styled(Carousel)(
       border: none;
       color: ${theme.colors.text};
 
-      ${spacing.md('p')};
+      ${theme.spacing.md('p')};
 
       svg {
         display: none;
       }
 
-      ${bp.above.md`
+      ${bp.above.md} {
         display: block;
-      `};
+      }
     }
 
     .flickity-button:hover {
@@ -357,8 +357,8 @@ export default styled(Carousel)(
     .flickity-page-dots .dot {
       cursor: pointer;
 
-      ${spacing.md('py')}
-      ${spacing.xs('mx')}
+      ${theme.spacing.md('py')}
+      ${theme.spacing.xs('mx')}
       width: ${remSize(50)};
 
       &:before {
@@ -372,7 +372,7 @@ export default styled(Carousel)(
 
       &:hover {
         &:before {
-          background: ${color.darken(theme.colors.text, 0.2)};
+          background: ${theme.color.darken(theme.colors.text, 0.2)};
         }
       }
 

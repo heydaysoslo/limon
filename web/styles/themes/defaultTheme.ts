@@ -1,10 +1,20 @@
 import { css, DefaultTheme } from 'styled-components'
 
-import { remSize } from './utilities/Converters'
-import { BorderProps } from '../types'
+import { remSize } from '../utilities/Converters'
+import breakpointsFactory, {
+  bp as bpObject
+} from '../utilities/breakpointsFactory'
+import spacingFactory from '../utilities/spacingFactory'
+import fontFactory, { fontFuncs } from 'styles/utilities/fontFactory'
+import color from 'styles/utilities/Colors'
 
 const green = '#01582E'
 const yellow = '#fee93f'
+
+export const baseColors = {
+  green: '#01582E',
+  yellow: '#fee93f'
+}
 
 export const colors = {
   primary: green,
@@ -139,39 +149,60 @@ export const borderWidth = {
   large: remSize(3)
 }
 
+/**
+ * Usage:
+ * {
+ *  border-left: ${theme.border.large()}
+ * }
+ */
 export const border = {
-  large: (prop: BorderProps) => ({ theme }: { theme: DefaultTheme }) => css`
-    ${prop}: ${theme.borderWidth.large} solid ${theme.colors.border};
-  `,
-  small: (prop: BorderProps) => ({ theme }: { theme: DefaultTheme }) => css`
-    ${prop}: ${theme.borderWidth.small} solid ${theme.colors.border};
-  `
+  large: () => ({ theme }) =>
+    `${theme.borderWidth.large} solid ${theme.colors.border};`,
+  small: () => ({ theme }) =>
+    `${theme.borderWidth.small} solid ${theme.colors.border};`
 }
 
-export const theme: DefaultTheme = {
+const bp: bpObject = breakpointsFactory(breakpoints)
+const spacing = spacingFactory({
+  responsiveSpacing,
+  bp: {
+    sm: bp.sm,
+    md: bp.md,
+    lg: bp.lg,
+    xl: bp.xl,
+    xxl: bp.xxl
+  }
+})
+
+const fonts: fontFuncs = fontFactory({ responsiveFonts, bp })
+
+/**
+ * TODO: Add types properly with
+ * const theme: DefaultTheme = {
+ *  ...
+ * }
+ *
+ * export default theme
+ */
+
+const theme: DefaultTheme = {
   colors,
   breakpoints,
+  color,
+  bp,
   spacingUnit,
   grid,
   fontFamily,
   aspect,
+  fonts,
   responsiveFonts,
+  spacing,
+  responsiveSpacing,
   contentWidth,
   trans,
   icons,
   borderWidth,
   border
-}
-
-export const darkTheme: DefaultTheme = {
-  ...theme,
-  colors: {
-    primary: yellow,
-    secondary: yellow,
-    text: yellow,
-    border: 'black',
-    background: green
-  }
 }
 
 export default theme

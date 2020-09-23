@@ -1,5 +1,4 @@
-import { css } from 'styled-components'
-import { spacing } from './Spacing'
+import { css, CSSObject } from 'styled-components'
 
 /**
  * 'mb', '20px' => 'margin-botton: 20px'
@@ -10,28 +9,28 @@ import { spacing } from './Spacing'
  * @param {*} value the value you want to insert for the props
  */
 
-export const addSpacingProps = (propsString = 'mb', value) => {
-  if (typeof propsString !== 'string') {
-    console.log(
-      `addSpacingProps propsString needs to be a string was ${typeof propsString}`,
-      propsString,
-      value
-    )
-    return null
-  }
-  const props = propsString.split(',').map(prop => prop.trim())
-  return css`
-    ${props.map(prop => {
-      if (!spacing[prop]) {
-        console.warn(
-          `addSpacingProp: the method ${prop} does not exist on spacing`
-        )
-        return null
-      }
-      return spacing[prop](value)
-    })}
-  `
-}
+// export const addSpacingProps = (propsString = 'mb', value) => {
+//   if (typeof propsString !== 'string') {
+//     console.log(
+//       `addSpacingProps propsString needs to be a string was ${typeof propsString}`,
+//       propsString,
+//       value
+//     )
+//     return null
+//   }
+//   const props = propsString.split(',').map(prop => prop.trim())
+//   return css`
+//     ${props.map(prop => {
+//       if (!spacing[prop]) {
+//         console.warn(
+//           `addSpacingProp: the method ${prop} does not exist on spacing`
+//         )
+//         return null
+//       }
+//       return spacing[prop](value)
+//     })}
+//   `
+// }
 
 export const addProps = (propsString, value) => {
   const props = propsString.split(',').map(prop => prop.trim())
@@ -57,4 +56,9 @@ export const parseCssUnit = cssUnit => {
   }
   const unit = cssUnit.replace(/^[-\d.]+/, '')
   return { number, unit }
+}
+
+export const applyModifier = (modifier, css) => ({ modifiers }) => {
+  if (!modifiers) return null
+  return modifiers === modifier || modifiers.includes(modifier) ? css : null
 }

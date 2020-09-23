@@ -1,30 +1,26 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
-import { bp, spacing } from '../../styles/utilities'
-import {
-  FlexBoxAlignItems,
-  ResponsiveColumns,
-  ResponsiveReverse,
-  SpacingUnits,
-  FlexBoxJustifyContent
-} from '../../types'
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components'
+import { BreakpointKeys } from 'styles/utilities/breakpointsFactory'
+import { SpacingSizes } from 'styles/utilities/spacingFactory'
+import { FlexBoxAlignItems, FlexBoxJustifyContent } from '../../types'
 
 type Props = {
   className?: string
-  columns?: ResponsiveColumns | number // This will override span in GridItem
-  reverse?: ResponsiveReverse | boolean
+  reverse?: Record<BreakpointKeys, boolean | undefined> | undefined | boolean
   align?: FlexBoxAlignItems
   justify?: FlexBoxJustifyContent
-  gapUnit?: SpacingUnits
+  gapUnit?: SpacingSizes
   gap?: object | boolean
   gapY?: object | boolean
   gapX?: object | boolean
 }
 
+type Columns = Record<BreakpointKeys, number | undefined> | number
+
 type GridItemProps = {
   className?: string
-  offset?: ResponsiveColumns | number
-  span?: ResponsiveColumns | number
+  offset?: Columns
+  span?: Columns
 }
 
 const BaseGrid: React.FC<Props> = ({ className, children }) => {
@@ -47,7 +43,10 @@ const BaseGridItem: React.FC<GridItemProps> = ({ children, className }) => {
   return <div className={className}>{children}</div>
 }
 
-const setGridItemSpan = ({ span, theme }) => {
+const setGridItemSpan: ({
+  span: Columns,
+  theme: DefaultTheme
+}) => FlattenSimpleInterpolation | any[] | undefined = ({ span, theme }) => {
   if (span === 'auto') {
     return css`
       flex: 0 0 auto;
@@ -57,10 +56,16 @@ const setGridItemSpan = ({ span, theme }) => {
   }
   switch (typeof span) {
     case 'object':
-      return Object.keys(span).map(
-        key => bp.above[key]`
-        ${setGridItemSpan({ span: span[key], theme })};
-          `
+      return Object.keys(span).map(key =>
+        key === 'xs'
+          ? css`
+              ${setGridItemSpan({ span: span[key], theme })};
+            `
+          : css`
+              ${theme.bp[key]} {
+                ${setGridItemSpan({ span: span[key], theme })};
+              }
+            `
       )
     case 'number':
       if (span >= 1) {
@@ -80,10 +85,16 @@ const setGridItemSpan = ({ span, theme }) => {
 const setGridItemOffset = ({ offset, theme }) => {
   switch (typeof offset) {
     case 'object':
-      return Object.keys(offset).map(
-        key => bp.above[key]`
-        ${setGridItemOffset({ offset: offset[key], theme })};
-          `
+      return Object.keys(offset).map(key =>
+        key === 'xs'
+          ? css`
+              ${setGridItemOffset({ offset: offset[key], theme })};
+            `
+          : css`
+              ${theme.bp[key]} {
+                ${setGridItemOffset({ offset: offset[key], theme })};
+              }
+            `
       )
     case 'number':
       if (offset >= 1) {
@@ -109,54 +120,44 @@ export const GridItem = styled(BaseGridItem)<GridItemProps>(
   `
 )
 
-const setResponsiveColumns = columns => {
-  switch (typeof columns) {
-    case 'number':
-      return css`
-        flex-basis: ${100 / columns}%;
-        max-width: ${100 / columns}%;
-      `
-    case 'object':
-      return Object.keys(columns).map(
-        key => bp.above[key]`
-          ${setResponsiveColumns(columns[key])};
-        `
-      )
-  }
-}
-
 /*
 Possible to pass the following units:
 - Hard unit: vw, px, %, rem, etc
 - Theme spacing unit: 'gutter', 'lg'
 - Boolean: true (default spacing unit), false (no gutter at all)
 */
-const setResponsiveGaps = ({ gap, cssProps, multiplier }) => {
+const setResponsiveGaps = ({ gap, cssProps, multiplier }) => ({ theme }) => {
   switch (typeof gap) {
     case 'object':
-      return Object.keys(gap).map(
-        key => bp.above[key]`
-          ${setResponsiveGaps({ gap: gap[key], multiplier, cssProps })}
-        `
+      return Object.keys(gap).map(key =>
+        key === 'xs'
+          ? css`
+              ${setResponsiveGaps({ gap: gap[key], multiplier, cssProps })}
+            `
+          : css`
+              ${theme.bp[key]} {
+                ${setResponsiveGaps({ gap: gap[key], multiplier, cssProps })}
+              }
+            `
       )
     case 'number':
-      return spacing({ val: `${gap}px`, cssProps, multiplier })
+      return theme.spacing.func({ val: `${gap}px`, cssProps, multiplier })
     case 'boolean':
       const defaultGapUnit = 'gutter'
-      return spacing[defaultGapUnit](cssProps, {
+      return theme.spacing[defaultGapUnit](cssProps, {
         multiplier: gap ? multiplier : 0
       })
     default:
-      if (spacing[gap]) {
-        return spacing[gap](cssProps, { multiplier })
+      if (theme.spacing[gap]) {
+        return theme.spacing[gap](cssProps, { multiplier })
       } else {
-        return spacing({ val: gap, cssProps, multiplier })
+        return theme.spacing.func({ val: gap, cssProps, multiplier })
       }
   }
 }
 
 export default styled(BaseGrid)<Props>(
-  ({ columns, gap, gapY, gapX, reverse, align, justify, theme }) => css`
+  ({ gap, gapY, gapX, reverse, align, justify, theme }) => css`
     display: flex;
     flex: 0 1 auto;
     flex-direction: ${reverse ? 'row-reverse' : 'row'};
@@ -230,8 +231,6 @@ export default styled(BaseGrid)<Props>(
           multiplier: 1,
           cssProps: 'pb'
         })}
-
-        ${columns && setResponsiveColumns(columns)}
 
     }
   `

@@ -1,41 +1,40 @@
 import styled, { css } from 'styled-components'
 
-import { fonts } from '../../styles/utilities'
+import { applyModifier } from '../../styles/utilities'
 
-type Modifiers = 'large' | 'small'
+export const P = styled.p(
+  ({ theme }) => css`
+    ${theme.fonts.body()}
 
-type Props = {
-  modifiers?: Modifiers | Modifiers[]
-}
-
-export const P = styled.p<Props>(
-  ({ theme, modifiers }) => css`
-    ${fonts?.body?.()}
-    ${modifiers?.includes('large') &&
-      css`
-        font-size: 2rem;
-      `}
-    ${modifiers?.includes('large') &&
+    ${applyModifier(
+      'small',
       css`
         font-size: 0.8rem;
-      `}
+      `
+    )}
+    ${applyModifier(
+      'large',
+      css`
+        font-size: 9rem;
+      `
+    )}
   `
 )
 
 export const H1 = styled.h1(
   ({ theme }) => css`
-    ${fonts?.h1?.()}
+    ${theme.fonts.h1()}
   `
 )
 
 export const H2 = styled.h2(
   ({ theme }) => css`
-    ${fonts?.h1?.()}
+    ${theme.fonts.h2()}
   `
 )
 
 export const H3 = styled.h3(
   ({ theme }) => css`
-    ${fonts?.title?.()}
+    ${theme.fonts.title?.()}
   `
 )

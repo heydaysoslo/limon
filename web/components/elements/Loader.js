@@ -22,11 +22,11 @@ const Loader = ({ className }) => {
 export default styled(Loader)(
   ({ theme }) => css`
     text-align: center;
-    ${spacing.section('my')};
+    ${theme.spacing.section('my')};
 
     span {
       display: inline-block;
-      ${fonts.h1()};
+      ${theme.fonts.h1()};
     }
   `
 )

@@ -5,7 +5,6 @@ import LinkResolver from '@heydays/LinkResolver'
 import Editor from '../editor'
 import styled, { css } from 'styled-components'
 import { P } from './Typography'
-import { spacing } from '../../styles/utilities'
 import CloudinaryImage from './CloudinaryImage'
 
 const Card = ({ className, title, image, excerpt, link }) => {
@@ -53,7 +52,7 @@ export default styled(Card)(
 
     .title,
     .excerpt {
-      ${spacing.sm('mt')}
+      ${theme.spacing.sm('mt')}
     }
   `
 )

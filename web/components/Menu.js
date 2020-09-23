@@ -5,8 +5,6 @@ import useFetch from '@heydays/useFetch'
 import VisuallyHidden from '@heydays/VisuallyHidden'
 import React from 'react'
 import styled, { css, useTheme } from 'styled-components'
-import { fonts, spacing } from 'styles/utilities'
-import { bp } from '../styles/utilities'
 import FloatingWord from './FloatingWord'
 
 const Menu = ({ className }) => {
@@ -57,21 +55,21 @@ const Menu = ({ className }) => {
 }
 
 export default styled(Menu)(
-  ({ theme }) => css`
-    ${spacing.section('mt')};
+  ({ theme: t }) => css`
+    ${t.spacing.section('mt')};
     text-align: left;
 
     .category {
       &:not(:first-of-type) {
-        ${spacing.section('mt')};
+        ${t.spacing.section('mt')};
       }
-      ${bp.above.md`
+      /* ${t.bp.above.md`
         padding-left:30%;
         &:nth-of-type(odd) {
           padding-left: 0;
           padding-right:30%;
         }
-      `}
+      `} */
     }
 
     .category__list {
@@ -82,16 +80,16 @@ export default styled(Menu)(
       position: sticky;
       /* top: var(--headerHeight); */
       top: 0;
-      ${spacing.sm('py')};
-      background-color: ${theme.colors.background};
-      ${fonts.display()};
+      ${t.spacing.sm('py')};
+      background-color: ${t.colors.background};
+      ${t.fonts.display()};
       h2 {
         margin: 0;
       }
     }
 
     .item:not(:first-child) {
-      ${spacing.lg('mt')}
+      ${t.spacing.lg('mt')}
       margin-bottom: 0;
     }
 
@@ -110,11 +108,11 @@ export default styled(Menu)(
     .item__content {
       max-width: 50ch;
       font-size: 4rem;
-      ${spacing.xs('mt')};
+      ${t.spacing.xs('mt')};
       font-style: italic;
     }
     .actions {
-      ${spacing.section('mt')};
+      ${t.spacing.section('mt')};
     }
   `
 )
