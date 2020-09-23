@@ -22,10 +22,6 @@ export const GlobalStyle = createGlobalStyle(
       color: white;
     }
 
-    #___gatsby {
-      transition: background-color 300ms ease;
-    }
-
     figure {
       margin: 0;
       position: relative;
