@@ -85,7 +85,7 @@ export default {
           name: 'page',
           title: 'Page',
           type: 'reference',
-          to: [{ type: 'page' }, { type: 'menu' }, { type: 'person' }]
+          to: [{ type: 'page' }, { type: 'menu' }]
         }
       ],
       fieldset: 'important'

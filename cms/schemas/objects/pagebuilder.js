@@ -1,4 +1,4 @@
-import d from '../defaults'
+import Menu from '../../custom/components/icons/Menu'
 export default {
   name: 'pagebuilder',
   title: 'pagebuilder',
@@ -14,7 +14,25 @@ export default {
           name: 'menu',
           title: 'menu',
           type: 'object',
-          fields: [{ ...d.title, description: 'Only visible for you' }]
+          fields: [
+            {
+              name: 'foodMenu',
+              title: 'Food Menu',
+              type: 'reference',
+              to: [{ type: 'foodMenu' }]
+            }
+          ],
+          preview: {
+            select: {
+              title: 'foodMenu.title'
+            },
+            prepare({ title }) {
+              return {
+                title,
+                media: Menu
+              }
+            }
+          }
         },
         // Section
         {

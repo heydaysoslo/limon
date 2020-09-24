@@ -8,12 +8,13 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import companyInfo from './documents/companyInfo'
 import menu from './documents/menu'
 import page from './documents/page'
-import person from './documents/person'
-import personOrder from './documents/personOrder'
-import article from './documents/article'
+// import person from './documents/person'
+// import personOrder from './documents/personOrder'
+// import article from './documents/article'
 // import articleOrder from './documents/articleOrder'
 import siteSettings from './documents/siteSettings'
 import frontpage from './documents/frontpage'
+import foodMenu from './documents/foodMenu'
 
 // Object types
 import link from './objects/link'
@@ -37,7 +38,7 @@ import imageSection from './objects/imageSection'
 import aspect from './objects/aspect'
 import section from './objects/section'
 import textImageSplit from './objects/textImageSplit'
-import personReference from './objects/personReference'
+// import personReference from './objects/personReference'
 import carousel from './objects/carousel'
 import oembed from './objects/oembed'
 import accordion from './objects/accordion'
@@ -81,7 +82,7 @@ export default createSchema({
     aspect,
     section,
     textImageSplit,
-    personReference,
+    // personReference,
     carousel,
     oembed,
     accordion,
@@ -97,10 +98,11 @@ export default createSchema({
     menu,
     siteSettings,
     page,
-    person,
-    personOrder,
-    article,
+    // person,
+    // personOrder,
+    // article,
     // articleOrder,
-    frontpage
+    frontpage,
+    foodMenu
   ])
 })

@@ -32,6 +32,7 @@ const hiddenDocTypes = listItem =>
     'article',
     'frontpage',
     'menu',
+    'foodMenu',
     ...config.pageTypes,
     ...hiddenCustomTypes
   ].includes(listItem.getId())
@@ -99,8 +100,9 @@ export default () =>
     .items([
       createMenuDeskStructure(),
       createDocsList('frontpage'),
+      createDocsList('foodMenu'),
       createDocsList('page'),
-      createDocsList('article'),
+      // createDocsList('article'),
       ...customTypesWithOrderPage,
       // This returns an array of all the document types
       // defined in schema.js. We filter out those that we have

@@ -54,6 +54,11 @@ export default {
     title: 'Editor Minimal',
     type: 'editorMinimal'
   },
+  description: {
+    name: 'description',
+    title: 'Description',
+    type: 'editorMinimal'
+  },
   alt: {
     name: 'alt',
     type: 'string',

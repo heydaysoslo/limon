@@ -8,7 +8,7 @@ export default {
       title: 'Content',
       type: 'reference',
       description: 'Use this for internal content.',
-      to: [{ type: 'article' }, { type: 'page' }]
+      to: [{ type: 'page' }]
     },
     {
       name: 'cardOverride',

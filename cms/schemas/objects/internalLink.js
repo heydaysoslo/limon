@@ -55,7 +55,7 @@ export default {
       name: 'reference',
       type: 'reference',
       title: 'Reference',
-      to: [{ type: 'article' }, { type: 'page' }, { type: 'frontpage' }]
+      to: [{ type: 'page' }, { type: 'frontpage' }]
     },
     ...defaultLinkFields
   ],
