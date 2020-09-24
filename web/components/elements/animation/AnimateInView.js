@@ -45,7 +45,7 @@ const AnimateInView = ({
   return (
     <motion.div
       variants={transitions[transition]}
-      animate={inView ? 'visible' : 'hidden'}
+      animate={inView ? 'animate' : 'initial'}
       ref={ref}
       {...props}
     >
