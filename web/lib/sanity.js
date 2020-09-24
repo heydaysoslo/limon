@@ -26,6 +26,7 @@ pagebuilder {
       reference->{slug, title,_type},
       ...
     },
+    foodMenu->{...},
     cardsList[]{
       content->{...},
       ...
@@ -82,6 +83,14 @@ export const getCompanyInfo = () => {
 
 export const getGlobalSettings = () => {
   const query = `*[_type == 'global']`
+  return client.fetch(query)
+}
+
+export const getFoodMenu = () => {
+  const query = `*[_type == 'foodMenu'] {
+    ...
+  }
+  `
   return client.fetch(query)
 }
 
