@@ -1,10 +1,12 @@
 import FaFileText from 'react-icons/lib/fa/file-text-o'
+import d from '../defaults'
 
 export default {
   name: 'textSection',
   title: 'Text Section',
   type: 'object',
   fields: [
+    d.theme,
     {
       name: 'body',
       title: 'Body',

@@ -1,6 +1,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import styled, { css } from 'styled-components'
+import styled, { css, ThemeProvider } from 'styled-components'
 
 import CardSection from './CardSection'
 import TextSection from './TextSection'
@@ -11,6 +11,7 @@ import VideoSection from './VideoSection'
 import Tabs from '../elements/Tabs'
 import Stagger from '@heydays/animation/Stagger'
 import Menu from '../Menu'
+import ThemeResolver from '@heydays/ThemeResolver'
 
 const sectionTypes = {
   section: Section,
@@ -40,11 +41,13 @@ const PageBuilder = ({ sections }) => {
           const Component = sectionTypes[section._type] || null
           return Component ? (
             <div key={section._key} className="PageBuilder__item">
-              <Component
-                {...section}
-                prevComp={sections[index - 1] ? sections[index - 1] : null}
-                nextComp={sections[index + 1] ? sections[index + 1] : null}
-              />
+              <ThemeResolver themeName={section?.themeName}>
+                <Component
+                  {...section}
+                  prevComp={sections[index - 1] ? sections[index - 1] : null}
+                  nextComp={sections[index + 1] ? sections[index + 1] : null}
+                />
+              </ThemeResolver>
             </div>
           ) : (
             <p key={section._key} style={{ background: 'yellow' }}>

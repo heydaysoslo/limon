@@ -78,6 +78,11 @@ export default {
       isHighlighted: true
     }
   },
+  theme: {
+    name: 'themeName',
+    title: 'Theme',
+    type: 'themeName'
+  },
   imagePreview: {
     preview: {
       select: {
