@@ -33,13 +33,13 @@ export const createFontSizeAndLineHeight = size => {
 type FontDefs = typeof fontDefs
 type FontSizes = keyof FontDefs
 type RequiredFontSizes = {
-  xs: string | { size: string; css: FlattenSimpleInterpolation }
+  xs: string | { size: string; css?: () => FlattenSimpleInterpolation }
 }
 type AllFontSizes = RequiredFontSizes &
   {
     [bp in BreakpointKeysWithoutXs]?:
       | string
-      | { size: string; css: FlattenSimpleInterpolation }
+      | { size: string; css?: () => FlattenSimpleInterpolation }
   }
 
 export type ResponsiveFonts = {
