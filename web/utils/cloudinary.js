@@ -40,9 +40,7 @@ export const getAspect = ratio => {
 }
 
 export const getImageSrc = (image, aspectRatio) => {
-  console.log('getImageSrc -> image', image)
   const { public_id, format } = image
-  console.log('getImageSrc -> public_id', public_id)
   let transformations = 'f_auto,q_auto'
   if (aspectRatio) {
     transformations += `,ar_${getAspect(aspectRatio)},c_fill`

@@ -44,7 +44,6 @@ const FloatingImage = ({
       engine.world.gravity.y = random(-0.1, 0.1)
 
       const { width, height } = wrapper.current.getBoundingClientRect()
-      console.log(wrapper.current.getBoundingClientRect())
 
       render = Render.create({
         element: container.current,
