@@ -37,7 +37,7 @@ export const serializers = {
             <p>
               <Button
                 as={LinkResolver}
-                data={props.node.link.link}
+                link={props.node.link.link}
                 modifiers="primary"
               >
                 {props.node.link.title}
@@ -58,12 +58,10 @@ export const serializers = {
         <p>
           <Button
             as={LinkResolver}
-            data={
-              props.node.link.externalLink?.url || props.node.link.reference
-            }
-            modifiers={props.node.type && props.node.type}
+            link={props.node.link?.href}
+            modifiers={props.node.linkStyle && props.node.linkStyle}
           >
-            {props.node.link.title}
+            {props.node.link.linkText}
           </Button>
         </p>
       )
@@ -84,6 +82,7 @@ export const serializers = {
   },
   marks: {
     link(props) {
+      console.log('link -> props', props)
       const link = props?.mark?.externalLink?.url || props?.mark?.reference
       if (!link) return props.children
       return (

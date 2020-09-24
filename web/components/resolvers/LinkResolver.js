@@ -37,7 +37,8 @@ export const InternalLink = ({
 }
 
 export const ExternalLink = ({ link, className, children, ...props }) => {
-  const { blank, title, linkText, href } = link
+  const { blank, title, linkText, href, type } = link
+  console.log('ExternalLink -> type', type)
   const targetProps = blank
     ? { target: '_blank', rel: 'noopener noreferrer' }
     : {}
@@ -61,6 +62,7 @@ export const ExternalLink = ({ link, className, children, ...props }) => {
 }
 
 const LinkResolver = ({ link, className, children, ...props }) => {
+  console.log('LinkResolver -> props', props)
   // External link
   if (typeof link === 'string') {
     return (
