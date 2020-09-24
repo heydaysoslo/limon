@@ -4,8 +4,11 @@ import CloudinaryMediaResolver from '@heydays/CloudinaryMediaResolver'
 import { H2 } from '@heydays/Typography'
 import React from 'react'
 import styled, { css, useTheme } from 'styled-components'
+import { random } from 'utils/helpers'
 import Editor from './editor'
 import FloatingWord from './FloatingWord'
+
+const ROTATIONS = [5, -5]
 
 const Menu = ({ className, foodMenu }) => {
   const theme = useTheme()
@@ -15,7 +18,16 @@ const Menu = ({ className, foodMenu }) => {
         <div className="category" key={category._key}>
           {category?.title && (
             <header className="category__header">
-              <h2 className="category__title">{category?.title}</h2>
+              <h2
+                style={{
+                  transform: `rotate(${
+                    ROTATIONS[random(0, ROTATIONS.length)]
+                  }deg)`
+                }}
+                className="category__title"
+              >
+                {category?.title}
+              </h2>
             </header>
           )}
           <div className="category__content">
@@ -84,6 +96,7 @@ export default styled(Menu)(
             flex-direction: row-reverse;
           }
           .category__image {
+            align-self: flex-start;
             transform: translate(-20%);
           }
           .category__title {
@@ -100,7 +113,8 @@ export default styled(Menu)(
       }
 
       &__title {
-        ${t.fonts.display()};
+        font-size: clamp(40px, 10vw, 230px);
+        text-transform: uppercase;
       }
 
       &__image {

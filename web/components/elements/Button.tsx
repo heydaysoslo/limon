@@ -40,10 +40,6 @@ export default styled(Button)(
       background-color: ${theme.color.lighten(theme.colors.text, 0.2)};
     }
 
-    ${theme.bp.md} {
-      background: orange;
-    }
-
     ${applyModifier(
       'small',
       css`
