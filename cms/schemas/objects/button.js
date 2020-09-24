@@ -1,40 +1,41 @@
-import MdTouchApp from "react-icons/lib/md/touch-app";
-import MdCallToAction from "react-icons/lib/md/call-to-action";
+import MdTouchApp from 'react-icons/lib/md/touch-app'
+import MdCallToAction from 'react-icons/lib/md/call-to-action'
 
 export default {
-  name: "button",
-  title: "Button",
-  type: "object",
+  name: 'button',
+  title: 'Button',
+  type: 'object',
   icon: MdTouchApp,
   fields: [
     {
-      name: "link",
-      title: "Link",
-      type: "link"
+      name: 'link',
+      title: 'Link',
+      type: 'link'
     },
     {
-      name: "type",
-      title: "Type",
-      type: "string",
-      description: "This determines the button style.",
+      name: 'type',
+      title: 'Type',
+      type: 'string',
+      description: 'This determines the button style.',
       options: {
         list: [
-          { value: "primary", title: "Primary" },
-          { value: "secondary", title: "Secondary" }
+          { value: 'primary', title: 'Primary' },
+          { value: 'secondary', title: 'Secondary' },
+          { value: 'floating', title: 'Floating' }
         ]
       }
     }
   ],
   preview: {
     select: {
-      title: "title",
-      linkTitle: "link.title"
+      title: 'title',
+      linkTitle: 'link.title'
     },
     prepare({ title, linkTitle }) {
       return {
-        title: title || linkTitle || "No title",
+        title: title || linkTitle || 'No title',
         media: MdTouchApp
-      };
+      }
     }
   }
-};
+}
