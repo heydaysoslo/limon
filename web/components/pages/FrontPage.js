@@ -1,11 +1,12 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import dynamic from 'next/dynamic'
 
 import Pagebuilder from '../pagebuilder/Pagebuilder'
 import Container from '@heydays/Container'
-import Hero from '../Hero'
+const Hero = dynamic(() => import('../Hero'))
 
-const FrontPage = ({ className, pagebuilder, title }) => {
+const FrontPage = ({ className, pagebuilder }) => {
   return (
     <div className={className}>
       <Container className="Page__container">

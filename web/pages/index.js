@@ -1,18 +1,22 @@
-import { getFrontpage, getArticles } from '../lib/sanity'
-import useFetch from '@heydays/useFetch'
+import { getFrontpage, getFoodMenu } from '../lib/sanity'
 import TemplateResolver from '../components/resolvers/TemplateResolver'
 
-export const getStaticProps = async () => {
+// export const getStaticProps = async () => {
+//   const data = await getFrontpage()
+//   const foodMenu = await getFoodMenu()
+//   return {
+//     props: { frontpage: data[0].frontpage, foodMenu }
+//   }
+// }
+
+const Home = ({ frontpage, foodMenu }) => {
+  return <TemplateResolver page={{ ...frontpage, foodMenu }} />
+}
+
+Home.getInitialProps = async () => {
   const data = await getFrontpage()
-  const articles = await getArticles()
-  return {
-    props: { frontpage: data[0].frontpage, articles }
-  }
+  const foodMenu = await getFoodMenu()
+  return { frontpage: data[0].frontpage, foodMenu }
 }
 
-export default function Home({ frontpage, articles }) {
-  const { response: res, error, isLoading } = useFetch('/api/hello')
-  console.log('Home -> res', res)
-
-  return <TemplateResolver page={frontpage} />
-}
+export default Home
