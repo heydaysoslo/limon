@@ -68,7 +68,7 @@ const Menu = ({ className, foodMenu }) => {
       )}
       <div className="actions">
         <Button style={{ width: '100%' }}>
-          <FloatingWord word="Bestill" color={theme.colors.background} />
+          <FloatingWord word="ORDER" color={theme.colors.background} />
         </Button>
       </div>
     </div>
