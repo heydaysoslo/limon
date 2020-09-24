@@ -17,7 +17,7 @@ const Header = ({ className, isDark, setIsDark }) => {
   return (
     <Container>
       <div className={className} ref={header}>
-        <div></div>
+        <div>Open now</div>
         <h1>
           <Link href="/">
             <Logo />
@@ -37,6 +37,6 @@ export default styled(Header)(
   ({ theme }) => css`
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
   `
 )
