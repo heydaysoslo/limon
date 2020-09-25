@@ -8,6 +8,7 @@ import Oembed from '../Oembed'
 import { H3, H2, P } from '@heydays/Typography'
 import Button from '@heydays/Button'
 import Accordion from '@heydays/Accordion'
+import styled, { css } from 'styled-components'
 
 export const serializers = {
   types: {
@@ -82,7 +83,6 @@ export const serializers = {
   },
   marks: {
     link(props) {
-      console.log('link -> props', props)
       const link = props?.mark?.externalLink?.url || props?.mark?.reference
       if (!link) return props.children
       return (
@@ -111,4 +111,21 @@ const Editor = ({ blocks, className }) => {
   )
 }
 
-export default Editor
+export default styled(Editor)(
+  ({ theme }) => css`
+    h2 {
+      ${theme.fonts.superLarge()};
+      ${theme.spacing.lg('mt')};
+    }
+    h3 {
+      ${theme.spacing.md('mt')};
+    }
+    p {
+      ${theme.spacing.xs('mt')};
+    }
+
+    .Figure {
+      ${theme.spacing.lg('mt')};
+    }
+  `
+)

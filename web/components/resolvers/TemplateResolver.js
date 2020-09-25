@@ -8,7 +8,7 @@ const templates = {
   default: 'Page'
 }
 
-export default function TemplateResolver({ page }) {
+const TemplateResolver = ({ page, ...props }) => {
   const [Component, setComponent] = useState(null)
 
   useEffect(() => {
@@ -32,5 +32,7 @@ export default function TemplateResolver({ page }) {
 
   if (!Component) return <div style={{ minHeight: '100vh' }} />
 
-  return <Component {...page} />
+  return <Component {...page} {...props} />
 }
+
+export default TemplateResolver

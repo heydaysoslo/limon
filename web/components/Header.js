@@ -10,15 +10,14 @@ const Header = ({ className, isDark, setIsDark }) => {
 
   useEffect(() => {
     const height = header?.current?.getBoundingClientRect()?.height
-    console.log('Header -> height', height)
     document.documentElement.style.setProperty('--headerHeight', height + 'px')
   }, [header])
 
   return (
     <Container>
       <div className={className} ref={header}>
-        <div>Open now</div>
-        <h1>
+        <div className="open">Open now</div>
+        <h1 className="logo">
           <Link href="/">
             <Logo />
           </Link>
@@ -38,5 +37,13 @@ export default styled(Header)(
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    ${theme.spacing.sm('py')};
+    width: 100%;
+
+    .logo {
+      width: 80%;
+      flex-grow: 1;
+      text-align: center;
+    }
   `
 )

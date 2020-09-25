@@ -2,17 +2,23 @@ import React, { useRef } from 'react'
 import styled, { css } from 'styled-components'
 import useIsFontLoaded from './hooks/useIsFontLoaded'
 import dynamic from 'next/dynamic'
+import { useInView } from 'react-intersection-observer'
 
 const Scene = dynamic(() => import('./Scene'))
 
-const Hero = ({ className }) => {
+const Hero = ({ className, navigation }) => {
   const hero = useRef(null)
   const { isFontLoaded, error } = useIsFontLoaded()
+  const [ref, inView, entry] = useInView({
+    /* Optional options */
+    threshold: 0.7,
+    triggerOnce: false
+  })
   return (
-    <div className={className} ref={hero}>
-      {isFontLoaded && (
-        <Scene wrapper={hero} words={['MENU', 'ABOUT', 'CEVICHE', 'SALADS']} />
-      )}
+    <div ref={ref}>
+      <div className={className} ref={hero}>
+        {isFontLoaded && inView && <Scene wrapper={hero} words={navigation} />}
+      </div>
     </div>
   )
 }

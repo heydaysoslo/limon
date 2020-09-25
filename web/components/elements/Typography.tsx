@@ -9,13 +9,13 @@ export const P = styled.p(
     ${applyModifier(
       'small',
       css`
-        font-size: 0.8rem;
+        ${theme.fonts.small()};
       `
     )}
     ${applyModifier(
       'large',
       css`
-        font-size: 9rem;
+        ${theme.fonts.display()};
       `
     )}
   `
@@ -30,6 +30,7 @@ export const H1 = styled.h1(
 export const H2 = styled.h2(
   ({ theme }) => css`
     ${theme.fonts.h2()}
+    text-transform: uppercase;
   `
 )
 

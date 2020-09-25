@@ -34,18 +34,30 @@ export default {
             }
           }
         },
+        {
+          name: 'scrollAnchor',
+          title: 'scrollAnchor',
+          type: 'object',
+          fields: [
+            {
+              name: 'id',
+              title: 'ID',
+              type: 'string'
+            }
+          ]
+        },
         // Section
-        {
-          name: 'section',
-          title: 'Section',
-          type: 'section'
-        },
+        // {
+        //   name: 'section',
+        //   title: 'Section',
+        //   type: 'section'
+        // },
         // Cards
-        {
-          name: 'cardSection',
-          title: 'Card Section',
-          type: 'cardSection'
-        },
+        // {
+        //   name: 'cardSection',
+        //   title: 'Card Section',
+        //   type: 'cardSection'
+        // },
         // Text section
         {
           name: 'textSection',
@@ -58,25 +70,31 @@ export default {
           title: 'Full Image Section',
           type: 'imageSection'
         },
-        // Text Image Split
-        {
-          name: 'textImageSplit',
-          title: 'Text Image Split',
-          type: 'textImageSplit'
-        },
-        // Carousel
-        {
-          name: 'carousel',
-          title: 'Carousel',
-          type: 'carousel'
-        },
-        // Tabs
-        {
-          name: 'tabs',
-          title: 'Tabs',
-          type: 'tabs'
-        },
-        // Video Section
+        // // Text Image Split
+        // {
+        //   name: 'textImageSplit',
+        //   title: 'Text Image Split',
+        //   type: 'textImageSplit'
+        // },
+        // // Carousel
+        // {
+        //   name: 'carousel',
+        //   title: 'Carousel',
+        //   type: 'carousel'
+        // },
+        // // Tabs
+        // {
+        //   name: 'tabs',
+        //   title: 'Tabs',
+        //   type: 'tabs'
+        // },
+        // // Video Section
+        // {
+        //   name: 'videoSection',
+        //   title: 'Video Section',
+        //   type: 'videoSection'
+        // },
+        // Scroll Anchor
         {
           name: 'videoSection',
           title: 'Video Section',

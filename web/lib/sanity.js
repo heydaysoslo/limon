@@ -54,7 +54,7 @@ export const getFrontpage = () => {
     }
     }
   `
-  return client.fetch(query)
+  return client.fetch(query).then(res => res[0].frontpage)
 }
 
 export const getSettings = () => {
@@ -73,7 +73,7 @@ export const getSettings = () => {
       ...
     }
   }`
-  return client.fetch(query)
+  return client.fetch(query).then(res => res[0])
 }
 
 export const getCompanyInfo = () => {

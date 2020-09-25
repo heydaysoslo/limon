@@ -104,6 +104,9 @@ export const responsiveFonts = {
   display: {
     xs: 'clamp(50px, 5vw, 200px)/1.2'
   },
+  superLarge: {
+    xs: 'clamp(50px, 10vw, 400px)/1.2'
+  },
   h1: {
     xs: {
       size: '40px/50px'

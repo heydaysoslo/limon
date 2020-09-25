@@ -6,11 +6,11 @@ import Pagebuilder from '../pagebuilder/Pagebuilder'
 import Container from '@heydays/Container'
 const Hero = dynamic(() => import('../Hero'))
 
-const FrontPage = ({ className, pagebuilder }) => {
+const FrontPage = ({ className, pagebuilder, siteSettings }) => {
   return (
     <div className={className}>
       <Container className="Page__container">
-        <Hero />
+        <Hero navigation={siteSettings?.primaryMenu?.item} />
         {pagebuilder?.sections && (
           <div className="Page__content">
             <Pagebuilder sections={pagebuilder.sections} />

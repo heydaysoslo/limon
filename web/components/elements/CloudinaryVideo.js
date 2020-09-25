@@ -1,8 +1,8 @@
 import React, { useRef, useLayoutEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
-import { Button } from '.'
 import { cldGetVideoUrl } from '../../utils/cloudinary'
+import Button from './Button'
 
 /*
 

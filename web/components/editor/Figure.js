@@ -7,7 +7,7 @@ const Figure = ({ node, aspectRatio, className }) => {
     return null
   }
   return (
-    <figure className={className}>
+    <figure className={`Figure ${className}`}>
       <CloudinaryMediaResolver node={node} aspectRatio={aspectRatio} />
       {node.caption && (
         <figcaption className="Figure__caption">{node.caption}</figcaption>

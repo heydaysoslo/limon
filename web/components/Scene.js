@@ -85,7 +85,7 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
       }
       const hinderOptions = angle => ({
         render: {
-          fillStyle: 'transparent',
+          fillStyle: 'green',
           strokeStyle: 'none',
           lineWidth: 0
         },
@@ -101,17 +101,23 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
         },
         isStatic: true
       }
-      const images = words.map(word =>
-        createImage(
-          word,
-          Math.max(50, Math.min(width / 10, 200)),
-          color || theme.colors.text
-        )
-      )
+      const images = words.map(word => {
+        return typeof word === 'string'
+          ? createImage(
+              word,
+              Math.max(50, Math.min(width / 10, 150)),
+              color || theme.colors.text
+            )
+          : createImage(
+              word.title || word.linkText,
+              Math.max(50, Math.min(width / 10, 150)),
+              color || theme.colors.text
+            )
+      })
       const newBodies = images.map((word, i) =>
         Bodies.rectangle(
-          random(200, width - 200),
-          random(200, height - 200),
+          random(100, width - 100),
+          random(100, height - 100),
           word.dimension.measure.width,
           word.dimension.height,
           {
@@ -156,7 +162,7 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
             hinderSize.height,
             hinderOptions(random(-0.4, 0.4, { float: true }))
           ),
-        ...[...new Array(noHinders ? 0 : 10)].map((_, i) =>
+        ...[...new Array(noHinders ? 0 : 5)].map((_, i) =>
           Bodies.rectangle(
             random(0, width),
             random(0, height),
@@ -179,7 +185,14 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
           ) {
             mouseConstraint.body.render.sprite.texture =
               mouseConstraint.body.words.hoverImage
-            router.push(`/${mouseConstraint.body.words.word.toLowerCase()}`)
+            console.log(mouseConstraint?.body?.words.word?._type)
+
+            if (mouseConstraint?.body?.words.word?._type === 'scrollLink') {
+              router.push(`#${mouseConstraint.body.words.word.id}`)
+            } else if (mouseConstraint?.body?.words.word?._type === 'link') {
+              console.log('external link')
+              window.open(mouseConstraint?.body?.words.word?.href, '_blank')
+            }
           }
         }
       })

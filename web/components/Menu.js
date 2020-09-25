@@ -41,17 +41,21 @@ const Menu = ({ className, foodMenu }) => {
             {category?.items?.length > 0 && (
               <ul className="category__list">
                 {category.items.map(item => (
-                  <AnimateInView key={item._key}>
+                  <AnimateInView key={item._key} initial={{ zIndex: -1 }}>
                     <li className="item">
-                      <H2 as="h3" className="item__header">
-                        {item.title}
-                      </H2>
+                      {item?.title && (
+                        <H2 as="h3" className="item__header">
+                          {item.title}
+                        </H2>
+                      )}
                       {item?.description && (
                         <Editor blocks={item.description} />
                       )}
-                      <H2 as="p" className="item__price">
-                        {item.price},-
-                      </H2>
+                      {item?.price && (
+                        <H2 as="p" className="item__price">
+                          {item.price},-
+                        </H2>
+                      )}
                     </li>
                   </AnimateInView>
                 ))}
@@ -96,7 +100,6 @@ export default styled(Menu)(
             flex-direction: row-reverse;
           }
           .category__image {
-            align-self: flex-start;
             transform: translate(-20%);
           }
           .category__title {
@@ -109,20 +112,22 @@ export default styled(Menu)(
       &__header {
         position: sticky;
         top: 0;
-        background: ${t.colors.background};
+        z-index: 1;
+        background: ${`linear-gradient(180deg, ${t.colors.background} 60%, transparent)`};
       }
 
       &__title {
-        font-size: clamp(40px, 10vw, 230px);
+        ${t.fonts.superLarge()};
         text-transform: uppercase;
       }
 
       &__image {
         position: sticky;
-        top: 0;
+        top: 8rem;
         z-index: -1;
 
         ${t.bp.md} {
+          align-self: flex-start;
           width: 50%;
           transform: translate(20%);
         }

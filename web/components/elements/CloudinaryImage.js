@@ -17,7 +17,6 @@ const CloudinaryImage = ({ node, aspectRatio = null }) => {
     node?.cldImage?.aspectRatio ||
     node?.aspect_ratio ||
     null
-  console.log('CloudinaryImage -> originalRatio', originalRatio)
   const passedRatio = aspectRatio && getAspect(aspectRatio)
   // Get the passed ratio first, then fallback to image original ratio
   const ratioValue = passedRatio || originalRatio
