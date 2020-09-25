@@ -71,6 +71,9 @@ export const getSettings = () => {
     },
     privacypage->{
       ...
+    },
+    designTokens->{
+      ...
     }
   }`
   return client.fetch(query).then(res => res[0])

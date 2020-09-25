@@ -75,6 +75,14 @@ export default {
       fieldset: 'important'
     },
     {
+      name: 'designTokens',
+      title: 'Design tokens',
+      type: 'reference',
+      to: [{ type: 'designTokens' }],
+      validation: Rule => Rule.required(),
+      fieldset: 'important'
+    },
+    {
       name: 'staticPages',
       description:
         "Pages added to this array can't be deleted. Ex: About or Contact page",

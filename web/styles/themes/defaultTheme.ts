@@ -5,8 +5,8 @@ import breakpointsFactory, {
   bp as bpObject
 } from '../utilities/breakpointsFactory'
 import spacingFactory from '../utilities/spacingFactory'
-import fontFactory, { fontFuncs } from 'styles/utilities/fontFactory'
-import color from 'styles/utilities/Colors'
+import fontFactory, { fontFuncs } from '../utilities/fontFactory'
+import color from '../utilities/Colors'
 
 const green = '#01582E'
 const yellow = '#fee93f'
@@ -165,7 +165,7 @@ export const border = {
     `${theme.borderWidth.small} solid ${theme.colors.border};`
 }
 
-const bp: bpObject = breakpointsFactory(breakpoints)
+export const bp: bpObject = breakpointsFactory(breakpoints)
 const spacing = spacingFactory({
   responsiveSpacing,
   bp: {

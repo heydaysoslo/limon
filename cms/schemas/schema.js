@@ -15,6 +15,7 @@ import page from './documents/page'
 import siteSettings from './documents/siteSettings'
 import frontpage from './documents/frontpage'
 import foodMenu from './documents/foodMenu'
+import designTokens from './documents/designTokens'
 
 // Object types
 import link from './objects/link'
@@ -105,6 +106,7 @@ export default createSchema({
     // article,
     // articleOrder,
     frontpage,
-    foodMenu
+    foodMenu,
+    designTokens
   ])
 })
