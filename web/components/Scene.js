@@ -85,7 +85,7 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
       }
       const hinderOptions = angle => ({
         render: {
-          fillStyle: 'green',
+          fillStyle: 'transparent',
           strokeStyle: 'none',
           lineWidth: 0
         },
