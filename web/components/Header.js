@@ -16,7 +16,7 @@ const Header = ({ className, isDark, setIsDark }) => {
   return (
     <Container>
       <div className={className} ref={header}>
-        <div className="open">Open now</div>
+        <p className="open">{isDark ? 'Gone fishing' : 'Open now'}</p>
         <h1 className="logo">
           <Link href="/">
             <Logo />

@@ -15,6 +15,7 @@ import Header from 'components/Header'
 import SEO from 'components/SEO'
 import Footer from '../components/Footer'
 import { SanityProvider } from '../components/context/sanityContext'
+// import SvgFilter from 'components/SvgFilter'
 
 function MyApp({ Component, pageProps }) {
   const [isDark, setIsDark] = React.useState(false)
@@ -33,6 +34,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </AnimatePresence>
         <Footer />
+        {/* <SvgFilter /> */}
       </ThemeProvider>
     </SanityProvider>
   )

@@ -6,6 +6,9 @@ export const GlobalStyle = createGlobalStyle(
     html {
       font-size: 62.5%;
     }
+  :root {
+    --document-height: 10000px;
+  }
 
     body {
       overflow-x: hidden;
@@ -15,6 +18,17 @@ export const GlobalStyle = createGlobalStyle(
       color: ${theme.colors.text};
       ${theme.fonts.body()}
       background-color: ${theme.colors.background};
+      /* &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--document-height);
+        z-index: -1;
+          filter: url(#roughpaper);
+      } */
     }
 
     ::selection {

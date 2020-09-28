@@ -39,8 +39,8 @@ const editor = {
         { title: 'H2', value: 'h2' },
         { title: 'H3', value: 'h3' },
         {
-          title: 'Lead text',
-          value: 'lead',
+          title: 'Large text',
+          value: 'large',
           blockEditor: {
             render: LeadTextRenderer
           }

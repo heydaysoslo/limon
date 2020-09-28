@@ -114,7 +114,6 @@ const Editor = ({ blocks, className }) => {
 export default styled(Editor)(
   ({ theme }) => css`
     h2 {
-      ${theme.fonts.superLarge()};
       ${theme.spacing.lg('mt')};
     }
     h3 {
