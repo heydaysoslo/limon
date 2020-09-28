@@ -114,6 +114,15 @@ export default styled(Menu)(
         top: 0;
         z-index: 1;
         background: ${`linear-gradient(180deg, ${t.colors.background} 60%, transparent)`};
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          /* filter: url(#roughpaper); */
+        }
       }
 
       &__title {
@@ -122,11 +131,11 @@ export default styled(Menu)(
       }
 
       &__image {
-        position: sticky;
-        top: 8rem;
-        z-index: -1;
-
+        ${t.spacing.md('mt')};
         ${t.bp.md} {
+          position: sticky;
+          top: 8rem;
+          z-index: -1;
           align-self: flex-start;
           width: 50%;
           transform: translate(20%);
