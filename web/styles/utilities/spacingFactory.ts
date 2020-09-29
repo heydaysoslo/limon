@@ -21,7 +21,12 @@ const shorthandDefs = {
   py: ['padding-top', 'padding-bottom'],
   px: ['padding-left', 'padding-right'],
   // Grid
-  gap: ['grid-gap']
+  gap: ['grid-gap'],
+  // Positions
+  top: ['top'],
+  bottom: ['bottom'],
+  left: ['left'],
+  right: ['right']
 } as const
 
 /**
