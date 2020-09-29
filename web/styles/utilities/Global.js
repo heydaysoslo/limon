@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle(
   }
 
     body {
+      position: relative;
       overflow-x: hidden;
       font-family: ${theme.fontFamily.sans};
       -webkit-font-smoothing: antialiased;
@@ -120,19 +121,20 @@ export const GlobalStyle = createGlobalStyle(
     ${process.env.NODE_ENV === 'development' &&
       css`
     body:after {
+      content: "${theme.breakpoints[0]}";
       background: rgba(255, 255, 255, 0.5);
       position: fixed;
-      bottom: 0;
-      left: 0;
-      ${theme.spacing.xs(['py', 'px'])}
+      ${theme.spacing.xs(['py', 'px', 'bottom', 'left'])}
       ${theme.fonts.body()}
-      /* ${Object.keys(theme.breakpoints).map(
-        key =>
-          css`
-            ${theme.bp[key]`content: '${key}';`}
-          `
-      )} */
+      ${Object.keys(theme.breakpoints).map(key => {
+        return css`
+          ${theme?.bp?.[key]} {
+            content: "${key}";
+          }
+        `
+      })}
     }
   `}
+
   `
 )
