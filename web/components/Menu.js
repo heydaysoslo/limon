@@ -72,7 +72,7 @@ const Menu = ({ className, foodMenu }) => {
       )}
       <div className="actions">
         <Button style={{ width: '100%' }}>
-          <FloatingWord word="ORDER" color={theme.colors.background} />
+          {/* <FloatingWord word="ORDER" color={theme.colors.background} /> */}
         </Button>
       </div>
     </div>
@@ -145,6 +145,7 @@ export default styled(Menu)(
 
     .item {
       ${t.spacing.lg('mt')};
+      /* ${console.log(t.responsiveSpacing.lg)}; */
 
       &__price,
       &__content {

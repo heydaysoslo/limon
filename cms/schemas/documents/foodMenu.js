@@ -1,11 +1,12 @@
-import Menu from '../../custom/components/icons/Menu'
+import React from 'react'
+import EmojiIcon from '../../custom/components/icons/EmojiIcon'
 import d from '../defaults'
 
 export default {
   name: 'foodMenu',
   title: 'Food Menu',
   type: 'document',
-  icon: Menu,
+  icon: () => <EmojiIcon>🍗</EmojiIcon>,
   fields: [
     d.title,
     {

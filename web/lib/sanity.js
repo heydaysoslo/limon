@@ -2,15 +2,23 @@ import sanityClient from '@sanity/client'
 
 const options = {
   // Find your project ID and dataset in `sanity.json` in your studio project
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   useCdn: process.env.NODE_ENV === 'production'
   // useCdn == true gives fast, cheap responses using a globally distributed cache.
   // Set this to false if your application require the freshest possible
   // data always (potentially slightly slower and a bit more expensive).
 }
 
-const BASE_ARTICLE = `
+const client = sanityClient(options)
+
+export const previewClient = sanityClient({
+  ...options,
+  useCdn: false,
+  token: process.env.NEXT_PUBLIC_SANITY_TOKEN
+})
+
+export const BASE_ARTICLE = `
   _id,
   title,
   slug {
@@ -19,16 +27,16 @@ const BASE_ARTICLE = `
   mainImage
 `
 
-const PAGEBUILDER = `
+export const PAGEBUILDER = `
 pagebuilder {
   sections[]{
     seeAllLink {
       reference->{slug, title,_type},
       ...
     },
-    foodMenu->{...},
+    foodMenu->,
     cardsList[]{
-      content->{...},
+      content->,
       ...
     },
     ...
@@ -36,14 +44,6 @@ pagebuilder {
   ...
 }
 `
-
-const client = sanityClient(options)
-
-export const previewClient = sanityClient({
-  ...options,
-  useCdn: false,
-  token: process.env.SANITY_TOKEN
-})
 
 export const getFrontpage = () => {
   const query = `
@@ -60,21 +60,14 @@ export const getFrontpage = () => {
 export const getSettings = () => {
   const query = `*[_type == 'siteSettings']{
     ...,
-    primaryMenu->{
-      ...
-    },
-    secondaryMenu->{
-      ...
-    },
+    primaryMenu->,
+    secondaryMenu->,
     frontpage->{
-      ...
+      ...,
+      ${PAGEBUILDER}
     },
-    privacypage->{
-      ...
-    },
-    designTokens->{
-      ...
-    }
+    privacypage->,
+    designTokens->
   }`
   return client.fetch(query).then(res => res[0])
 }
@@ -114,17 +107,7 @@ export const getArticle = params => {
   return client.fetch(query, params)
 }
 
-export const getPreview = params => {
-  const query = `
-  *[_id in [$id]]{
-    authors[]{
-      person->,
-      ...
-    },
-    ${PAGEBUILDER},
-    ...
-  } | order(_updatedAt desc)
-  `
+export const getPreview = (query, params) => {
   return previewClient.fetch(query, params)
 }
 

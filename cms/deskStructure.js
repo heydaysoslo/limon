@@ -1,17 +1,16 @@
+import React from 'react'
 import S from '@sanity/desk-tool/structure-builder'
-import config, {
-  createMenuDeskStructure,
-  createCustomTypeDeskStructure
-} from './heydays-config'
+import config, { createCustomTypeDeskStructure } from './heydays-config'
 
-import MdSettings from 'react-icons/lib/md/settings'
-import MdBusiness from 'react-icons/lib/md/business'
-import EyeIcon from 'part:@sanity/base/eye-icon'
-import EditIcon from 'part:@sanity/base/edit-icon'
-import FaFileO from 'react-icons/lib/fa/file-text-o'
+import EmojiIcon from './custom/components/icons/EmojiIcon'
+// import EyeIcon from 'part:@sanity/base/eye-icon'
+// import EditIcon from 'part:@sanity/base/edit-icon'
 
 import SeoPreview from './custom/components/previews/seo/SeoPreviews'
 import Preview from './custom/components/previews/preview/Preview'
+
+const EyeIcon = () => <EmojiIcon small>👀</EmojiIcon>
+const EditIcon = () => <EmojiIcon small>📝</EmojiIcon>
 
 // Create menus
 
@@ -25,6 +24,11 @@ const hiddenCustomTypes = config.customTypes.reduce((res, item) => {
   return res
 }, [])
 
+const camel2title = camelCase =>
+  camelCase
+    .replace(/([A-Z])/g, match => ` ${match}`)
+    .replace(/^./, match => match.toUpperCase())
+
 const hiddenDocTypes = listItem =>
   ![
     'companyInfo',
@@ -32,6 +36,7 @@ const hiddenDocTypes = listItem =>
     'article',
     'frontpage',
     'menu',
+    'designTokens',
     'foodMenu',
     ...config.pageTypes,
     ...hiddenCustomTypes
@@ -66,7 +71,7 @@ const createSingleton = (id, options = {}) => {
 
 const createDocsList = (id, options = {}) => {
   const { withPreviews = true } = options
-  const title = id
+  const title = camel2title(id)
   return S.listItem()
     .title(title)
     .schemaType(id)
@@ -98,7 +103,7 @@ export default () =>
   S.list()
     .title('Content')
     .items([
-      createMenuDeskStructure(),
+      createDocsList('menu'),
       createDocsList('frontpage'),
       createDocsList('foodMenu'),
       createDocsList('page'),
@@ -109,17 +114,23 @@ export default () =>
       // defined the structure above
       ...S.documentTypeListItems().filter(hiddenDocTypes),
       S.divider(),
-      createSingleton('companyInfo', { withPreviews: false, icon: MdBusiness }),
+      createDocsList('designTokens', {
+        withPreviews: true
+      }),
+      createSingleton('companyInfo', {
+        withPreviews: false,
+        icon: () => <EmojiIcon>🏢</EmojiIcon>
+      }),
       S.listItem()
         .title('Settings')
-        .icon(MdSettings)
+        .icon(() => <EmojiIcon>⚙️</EmojiIcon>)
         .child(
           S.list()
             .title('Settings')
             .items([
               createSingleton('siteSettings', {
                 withPreviews: false,
-                icon: MdSettings
+                icon: () => <EmojiIcon>⚙️</EmojiIcon>
               })
             ])
         )

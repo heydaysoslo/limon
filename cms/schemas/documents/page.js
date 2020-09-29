@@ -1,12 +1,11 @@
-import FaFileO from 'react-icons/lib/fa/file-text-o'
-// import PageIcon from '../../custom/components/icons/PageIcon'
-// import Conditional from '../../custom/components/Conditional'
+import React from 'react'
+import EmojiIcon from '../../custom/components/icons/EmojiIcon'
 
 export default {
   name: 'page',
   title: 'Page',
   type: 'document',
-  icon: FaFileO,
+  icon: () => <EmojiIcon>📄</EmojiIcon>,
   initialValue: {
     template: 'default'
   },

@@ -1,3 +1,5 @@
+import React from 'react'
+import EmojiIcon from '../../custom/components/icons/EmojiIcon'
 import d from '../defaults'
 import {
   responsiveSpacing,
@@ -9,6 +11,7 @@ export default {
   name: 'designTokens',
   title: 'Design Tokens',
   type: 'document',
+  icon: () => <EmojiIcon>💅</EmojiIcon>,
   fields: [
     d.title,
     {

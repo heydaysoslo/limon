@@ -27,10 +27,11 @@ class Preview extends React.PureComponent {
       window.location.host.includes('localhost') ||
       window.location.host.includes('.local')
 
-    const url = `${isLocal ? 'http://localhost:3000/preview/' : '/preview'}${
-      displayed._id
-    }`
-    console.log('Preview -> render -> url', url)
+    const url = `${
+      isLocal
+        ? 'http://localhost:3000/preview/'
+        : 'https://limon.heydays.vercel.app/preview'
+    }${displayed._id}`
 
     if (!displayed._id) return null
 

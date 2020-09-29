@@ -7,11 +7,12 @@ import Container from '@heydays/Container'
 import fontFactory from 'styles/utilities/fontFactory'
 import { bp } from 'styles/themes/defaultTheme'
 import spacingFactory from 'styles/utilities/spacingFactory'
+import defaultTheme from 'styles/themes/defaultTheme'
 
 const Hero = dynamic(() => import('../Hero'))
 
 const fromSanityToThemeSchema = theme => {
-  console.log('theme', theme.responsiveSpacing)
+  if (!theme) return defaultTheme
   const fonts = fontFactory({ responsiveFonts: theme.responsiveFonts, bp })
   const spacing = spacingFactory({
     responsiveSpacing: theme.responsiveSpacing,
@@ -26,11 +27,12 @@ const fromSanityToThemeSchema = theme => {
 
 const FrontPage = ({ className, pagebuilder, siteSettings }) => {
   const theme = fromSanityToThemeSchema(siteSettings?.designTokens?.theme)
+  // console.log('FrontPage -> theme', theme.responsiveSpacing.lg)
   return (
     <div className={className}>
       <ThemeProvider theme={theme}>
         <Container className="Page__container">
-          <Hero navigation={siteSettings?.primaryMenu?.item} />
+          {/* <Hero navigation={siteSettings?.primaryMenu?.item} /> */}
           {pagebuilder?.sections && (
             <div className="Page__content">
               <Pagebuilder sections={pagebuilder.sections} />

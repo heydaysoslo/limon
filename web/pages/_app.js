@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
     <SanityProvider>
       <ThemeProvider theme={isDark ? darkTheme : theme}>
         <Head>
-          <link href="./fonts/fonts.css" rel="stylesheet" />
+          <link href="/fonts/fonts.css" rel="stylesheet" />
         </Head>
         <SEO
           page={pageProps?.frontpage || pageProps?.article || pageProps?.page}

@@ -19,7 +19,9 @@ const Header = ({ className, isDark, setIsDark }) => {
         <p className="open">{isDark ? 'Gone fishing' : 'Open now'}</p>
         <h1 className="logo">
           <Link href="/">
-            <Logo />
+            <a>
+              <Logo />
+            </a>
           </Link>
         </h1>
         <Switch
