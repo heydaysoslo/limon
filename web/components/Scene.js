@@ -194,7 +194,8 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
             } else if (mouseConstraint?.body?.words.word?._type === 'link') {
               console.log('external link')
               actions.toggleMenu(false)
-              window.open(mouseConstraint?.body?.words.word?.href, '_blank')
+              // window.open(mouseConstraint?.body?.words.word?.href, '_blank')
+              window.location.href = mouseConstraint?.body?.words.word?.href
             }
           }
         }
