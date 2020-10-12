@@ -12,21 +12,23 @@ const WEEKDAYS = [
 ]
 
 const checkIfStoreIsOpen = openingHours => {
+  // console.log('openingHours', openingHours)
   if (!openingHours) return null
   const now = utcToZonedTime(new Date(), 'Europe/Oslo')
-  // const day = now.getDay()
-  const weekday = WEEKDAYS[getDay(now)]
+  const day = now.getDay()
+  const weekday = WEEKDAYS[day]
   const openingDay = openingHours[weekday]
   const month = now.getMonth()
   const year = now.getFullYear()
+  const date = now.getDate()
   let [openingHour, openingMinute] = openingDay.from
     .split(':')
     .map(item => parseInt(item))
   let [closingHour, closingMinute] = openingDay.to
     .split(':')
     .map(item => parseInt(item))
-  const openingTime = new Date(year, month, 0, openingHour, openingMinute, 0)
-  const closingTime = new Date(year, month, 0, closingHour, closingMinute, 0)
+  const openingTime = new Date(year, month, date, openingHour, openingMinute, 0)
+  const closingTime = new Date(year, month, date, closingHour, closingMinute, 0)
   return isWithinInterval(now, {
     start: openingTime,
     end: closingTime
