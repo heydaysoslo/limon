@@ -8,6 +8,7 @@ import useWindowSize from '@heydays/useWindowSize'
 import { random, createImage } from '../utils/helpers'
 import VisuallyHidden from '@heydays/VisuallyHidden'
 import { useTheme } from 'styled-components'
+import useAppContext from '@heydays/useAppContext'
 
 const Scene = ({ wrapper, words, noHinders, color }) => {
   const container = useRef(null)
@@ -17,6 +18,7 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
   const svg = useRef(null)
   const router = useRouter()
   const theme = useTheme()
+  const { actions } = useAppContext()
 
   useInterval(() => {
     if (matterEngine) {
@@ -187,9 +189,11 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
             console.log(mouseConstraint?.body?.words.word?._type)
 
             if (mouseConstraint?.body?.words.word?._type === 'scrollLink') {
+              actions.toggleMenu(false)
               router.push(`#${mouseConstraint.body.words.word.id}`)
             } else if (mouseConstraint?.body?.words.word?._type === 'link') {
               console.log('external link')
+              actions.toggleMenu(false)
               window.open(mouseConstraint?.body?.words.word?.href, '_blank')
             }
           }
