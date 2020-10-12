@@ -8,6 +8,17 @@ export default {
   fields: [
     d.theme,
     {
+      name: 'alignment',
+      title: 'Alignment',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Left', value: 'left' },
+          { title: 'Center', value: 'center' }
+        ]
+      }
+    },
+    {
       name: 'body',
       title: 'Body',
       type: 'editor'

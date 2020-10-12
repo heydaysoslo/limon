@@ -19,7 +19,6 @@
     "@sanity/components",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "@sanity/dashboard",
     "@sanity/desk-tool",
     "dashboard-widget-structure-menu",
     "dashboard-widget-document-list",
@@ -39,10 +38,6 @@
       "path": "./deskStructure.js"
     },
     {
-      "implements": "part:@sanity/dashboard/config",
-      "path": "./dashboardConfig.js"
-    },
-    {
       "implements": "part:@sanity/base/brand-logo",
       "path": "./custom/components/Logo.js"
     },
@@ -53,6 +48,10 @@
     {
       "implements": "part:@sanity/production-preview/resolve-production-url",
       "path": "./resolveProductionUrl.js"
+    },
+    {
+      "implements": "part:@sanity/base/document-actions/resolver",
+      "path": "./resolveDocumentActions.js"
     }
   ]
 }
