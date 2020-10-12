@@ -11,13 +11,11 @@ import { usePageVisibility } from '@heydays/usePageVisibility'
 
 const FloatingButton = ({ className, color, children, onClick }) => {
   const isPageVisible = usePageVisibility()
-  console.log('FloatingButton -> isPageVisible', isPageVisible)
   const [ref, inView, entry] = useInView({
     /* Optional options */
     threshold: 0.7,
     triggerOnce: false
   })
-  console.log('FloatingButton -> inView', inView)
   const wrapper = useRef(null)
   const container = useRef(null)
   const [matterEngine, setMatterEngine] = useState(null)
@@ -140,10 +138,6 @@ const FloatingButton = ({ className, color, children, onClick }) => {
 
       Matter.Events.on(mouseConstraint, 'mousedown', function(event) {
         if (mouseConstraint.body) {
-          console.log(
-            'FloatingButton -> mouseConstraint.body',
-            mouseConstraint.body?.words.onClick
-          )
           if (mouseConstraint?.body?.words?.onClick) {
             mouseConstraint.body.words.onClick()
           }
