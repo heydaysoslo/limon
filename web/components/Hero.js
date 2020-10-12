@@ -10,8 +10,8 @@ const Scene = dynamic(() => import('./Scene'))
 
 const Hero = ({ className }) => {
   const hero = useRef(null)
-  const isPageVisible = usePageVisibility()
   const { isFontLoaded } = useIsFontLoaded()
+  const isPageVisible = usePageVisibility()
   const [ref, inView] = useInView({
     /* Optional options */
     threshold: 0.1,

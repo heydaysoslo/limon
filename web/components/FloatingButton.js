@@ -1,25 +1,27 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react'
 import Matter, { Body } from 'matter-js'
 import styled, { css } from 'styled-components'
-import { useRouter } from 'next/router'
 
 import useInterval from '@heydays/useInterval'
 import useWindowSize from '@heydays/useWindowSize'
 import { random, createImage } from '../utils/helpers'
 import { useTheme } from 'styled-components'
 import { useInView } from 'react-intersection-observer'
+import { usePageVisibility } from '@heydays/usePageVisibility'
 
 const FloatingButton = ({ className, color, children, onClick }) => {
+  const isPageVisible = usePageVisibility()
+  console.log('FloatingButton -> isPageVisible', isPageVisible)
   const [ref, inView, entry] = useInView({
     /* Optional options */
     threshold: 0.7,
     triggerOnce: false
   })
+  console.log('FloatingButton -> inView', inView)
   const wrapper = useRef(null)
   const container = useRef(null)
   const [matterEngine, setMatterEngine] = useState(null)
   const windowSize = useWindowSize({ debounce: 250 })
-  const router = useRouter()
   const theme = useTheme()
 
   useInterval(() => {
@@ -34,7 +36,7 @@ const FloatingButton = ({ className, color, children, onClick }) => {
     let render
     let Engine
     let Render
-    if (container.current && wrapper.current) {
+    if (container.current && wrapper.current && isPageVisible && inView) {
       Engine = Matter.Engine
       Render = Matter.Render
       const World = Matter.World
@@ -175,23 +177,21 @@ const FloatingButton = ({ className, color, children, onClick }) => {
       mouse.element.removeEventListener('mousewheel', mouse.mousewheel)
       mouse.element.removeEventListener('DOMMouseScroll', mouse.mousewheel)
 
-      // Push ball
-      // Body.setVelocity(ballA, { x: 2, y: 3 });
       // add mouse control
       Render.run(render)
       Engine.run(engine)
     }
     return () => {
-      Engine.clear(engine)
-      Render.stop(render)
-      render.canvas.parentNode.removeChild(render.canvas)
+      Engine?.clear?.(engine)
+      Render?.stop?.(render)
+      render?.canvas?.parentNode?.removeChild?.(render.canvas)
     }
-  }, [windowSize, theme])
+  }, [windowSize, theme, isPageVisible, inView])
 
   return (
     <div className={className} ref={ref}>
       <button className="wrapper" ref={wrapper}>
-        <div ref={container} />
+        {inView && isPageVisible && <div ref={container} />}
       </button>
     </div>
   )
