@@ -9,6 +9,10 @@ export default function ThemeResolver({ themeName, children }) {
     if (themeName && themeName !== 'defaultTheme') {
       const nextTheme =
         currentTheme.name === 'defaultTheme' ? 'darkTheme' : 'defaultTheme'
+      if (themeName === 'inverted') {
+        console.log(currentTheme.name)
+        console.log('ThemeResolver -> nextTheme', nextTheme)
+      }
       // Dynamically import template
       import(
         `../../styles/themes/${
@@ -18,7 +22,7 @@ export default function ThemeResolver({ themeName, children }) {
         .then(comp => setTheme(() => comp.default))
         .catch(err => console.log(err))
     }
-  }, [themeName])
+  }, [themeName, currentTheme])
 
   if (!theme) return children
 
