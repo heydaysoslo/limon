@@ -26,7 +26,8 @@ const shorthandDefs = {
   top: ['top'],
   bottom: ['bottom'],
   left: ['left'],
-  right: ['right']
+  right: ['right'],
+  height: ['height']
 } as const
 
 /**
@@ -61,13 +62,15 @@ const shorthands = Object.keys(shorthandDefs).reduce((acc, key) => {
 
 export type spacingShorthands = keyof typeof shorthandDefs
 
+type spacingFunctionOptions = {
+  multiplier?: number
+  negative?: boolean
+}
+
 export type spacingFunctionArgs = {
   val: string
   cssProps: spacingShorthands | spacingShorthands[]
-  options?: {
-    multiplier?: number
-    negative?: boolean
-  }
+  options?: spacingFunctionOptions
 }
 
 type addSpacingProps = (
@@ -117,7 +120,8 @@ export type SpacingSizes = keyof typeof responsiveSpacing
 
 export type SpacingFuncs = {
   [size in SpacingSizes]: (
-    props: spacingShorthands | spacingShorthands[]
+    props: spacingShorthands | spacingShorthands[],
+    options?: spacingFunctionOptions
   ) => FlattenSimpleInterpolation
 }
 

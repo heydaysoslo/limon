@@ -69,7 +69,7 @@ const PageBuilderResolver = ({ section, ...props }) => {
       <Component className="PageBuilder__item" section={section} {...props} />
     </ThemeResolver>
   ) : (
-    <p key={section._key} style={{ background: 'yellow' }}>
+    <p key={section._key} style={{ background: 'red' }}>
       Component {section._type} not found
     </p>
   )

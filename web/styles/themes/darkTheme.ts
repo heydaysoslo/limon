@@ -3,6 +3,7 @@ import defaultTheme, { baseColors } from 'styles/themes/defaultTheme'
 
 export const darkTheme: DefaultTheme = {
   ...defaultTheme,
+  name: 'darkTheme',
   colors: {
     primary: baseColors.yellow,
     secondary: baseColors.yellow,

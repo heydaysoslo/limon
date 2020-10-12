@@ -26,7 +26,8 @@ import {
   fontFamily,
   icons,
   trans,
-  borderWidth
+  borderWidth,
+  elevation
 } from './themes/defaultTheme'
 import { bp, BreakpointSizes } from './utilities/breakpointsFactory'
 import color from './utilities/Colors'
@@ -34,6 +35,7 @@ import color from './utilities/Colors'
 // and extend them!
 declare module 'styled-components' {
   export interface DefaultTheme {
+    name: string
     colors: typeof colors
     color: typeof color
     breakpoints: typeof breakpoints
@@ -54,6 +56,7 @@ declare module 'styled-components' {
     fontFamily: typeof fontFamily
     fonts: fontFuncs
     aspect: typeof aspect
+    elevation: typeof elevation
     contentWidth: typeof contentWidth
     icons: typeof icons
     trans: typeof trans

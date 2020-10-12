@@ -2,7 +2,13 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import CloudinaryMediaResolver from '../resolvers/CloudinaryMediaResolver'
 
-const Figure = ({ node, aspectRatio, className }) => {
+type Props = {
+  node: any
+  aspectRatio?: string | number
+  className?: string
+}
+
+const Figure: React.FC<Props> = ({ node, aspectRatio, className }) => {
   if (!node?.cldImage) {
     return null
   }
@@ -17,7 +23,7 @@ const Figure = ({ node, aspectRatio, className }) => {
 }
 
 export default styled(Figure)(
-  ({ theme }) => css`
+  () => css`
     width: 100%;
     max-width: 100%;
   `

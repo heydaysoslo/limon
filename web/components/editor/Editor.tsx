@@ -9,6 +9,7 @@ import { H3, H2, P } from '@heydays/Typography'
 import Button from '@heydays/Button'
 import Accordion from '@heydays/Accordion'
 import styled, { css } from 'styled-components'
+import FloatingButton from 'components/FloatingButton'
 
 export const serializers = {
   types: {
@@ -47,15 +48,24 @@ export const serializers = {
           )
 
         case 'span':
-          return <P as="span">{props.children}</P>
+          return <P modifiers={null} as="span">{props.children}</P>
 
         default:
-          return <P>{props.children}</P>
+          return <P modifiers={null}>{props.children}</P>
       }
     },
     button(props) {
       if (!props.node.link) return null
-      return (
+      return props.node.type === 'floating' ? (
+        <>
+          {/* @ts-ignore */}
+          <FloatingButton
+            onClick={() => window.open(props.node.link?.href, '_blank')}
+          >
+            {props.node.link.linkText.toUpperCase()}
+          </FloatingButton>
+        </>
+      ) : (
         <p>
           <Button
             as={LinkResolver}
@@ -75,9 +85,11 @@ export const serializers = {
       return <Figure node={props.node} />
     },
     oembed(props) {
+      // @ts-ignore
       return <Oembed url={props.node.url} />
     },
     accordion(props) {
+      // @ts-ignore
       return <Accordion items={props.node.items} exclusive defaultActive={2} />
     }
   },
@@ -87,8 +99,9 @@ export const serializers = {
       if (!link) return props.children
       return (
         <LinkResolver
+          className=""
           openInNewTab={props?.mark?.externalLink?.blank}
-          data={link}
+          link={link}
         >
           {props.children ||
             props?.mark?.title ||
@@ -99,7 +112,12 @@ export const serializers = {
   }
 }
 
-const Editor = ({ blocks, className }) => {
+type Props = {
+  blocks: any
+  className?: string
+}
+
+const Editor: React.FC<Props> = ({ blocks, className }) => {
   return (
     <div className={`Editor ${className ? className : ''}`}>
       <BaseBlockContent
@@ -121,6 +139,10 @@ export default styled(Editor)(
     }
     p {
       ${theme.spacing.xs('mt')};
+    }
+
+    .Editor__blocks > *:first-child {
+      margin-top: 0;
     }
 
     .Figure {

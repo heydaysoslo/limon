@@ -58,7 +58,13 @@ export const toPlainText = (blocks, opts = {}) => {
     .join('\n\n')
 }
 
-export const createImage = (string, size = 100, color = 'green') => {
+export const createImage = (
+  string,
+  size = 100,
+  color = 'green',
+  withBorder = false,
+  hoverColor = 'red'
+) => {
   let drawing = document.createElement('canvas')
   const lineHeight = size * 1.1
 
@@ -74,10 +80,15 @@ export const createImage = (string, size = 100, color = 'green') => {
   ctx.textAlign = 'center'
   ctx.fillText(string, 75, 50) // numbers are x and y. y measures from the bottom
   const measure = ctx.measureText(string)
+  const PADDING = Math.floor(measure.width) / 20
 
   let newDrawing = document.createElement('canvas')
   newDrawing.width = Math.floor(measure.width)
   newDrawing.height = lineHeight + 4
+  if (withBorder) {
+    newDrawing.width = newDrawing.width + PADDING * 2
+    newDrawing.height = lineHeight + 4 + PADDING * 2
+  }
 
   // Create main image
   let newCtx = newDrawing.getContext('2d')
@@ -88,24 +99,57 @@ export const createImage = (string, size = 100, color = 'green') => {
   newCtx.fillStyle = color
   newCtx.font = `${size}pt/${lineHeight}pt Venus`
   newCtx.textAlign = 'center'
-  newCtx.fillText(string, newDrawing.width / 2, lineHeight - lineHeight * 0.01)
+  if (withBorder) {
+    newCtx.strokeStyle = color
+    newCtx.lineWidth = 3
+    newCtx.strokeRect(0, 0, newDrawing.width, newDrawing.height)
+    newCtx.fillText(
+      string,
+      newDrawing.width / 2,
+      lineHeight - lineHeight * 0.01 + PADDING
+    )
+  } else {
+    newCtx.fillText(
+      string,
+      newDrawing.width / 2,
+      lineHeight - lineHeight * 0.01
+    )
+  }
   const finalImage = newDrawing.toDataURL('image/png')
 
   // create hover image
   newCtx.clearRect(0, 0, newDrawing.width, newDrawing.height)
-  newCtx.fillStyle = 'transparent'
-  newCtx.strokeStyle = color
-  newCtx.lineWidth = 3
-  newCtx.strokeText(
-    string,
-    newDrawing.width / 2,
-    lineHeight - lineHeight * 0.01
-  )
-  const hoverImage = newDrawing.toDataURL('image/png')
 
+  if (withBorder) {
+    newCtx.fillStyle = color
+    newCtx.fillRect(0, 0, newDrawing.width, newDrawing.height)
+    newCtx.fillStyle = hoverColor
+    newCtx.fillText(
+      string,
+      newDrawing.width / 2,
+      lineHeight - lineHeight * 0.01 + PADDING
+    )
+  } else {
+    newCtx.fillStyle = 'transparent'
+    newCtx.strokeStyle = color
+    newCtx.lineWidth = 3
+    newCtx.strokeText(
+      string,
+      newDrawing.width / 2,
+      lineHeight - lineHeight * 0.01
+    )
+  }
+  const hoverImage = newDrawing.toDataURL('image/png')
   return {
     image: finalImage,
     hoverImage: hoverImage,
-    dimension: { measure, height: lineHeight }
+    dimension: {
+      measure: withBorder
+        ? {
+            width: measure.width + PADDING * 2
+          }
+        : { width: measure.width },
+      height: withBorder ? lineHeight + PADDING * 2 : lineHeight
+    }
   }
 }

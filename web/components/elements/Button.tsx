@@ -5,7 +5,6 @@ import { applyModifier } from 'styles/utilities'
 type Modifiers = 'secondary' | 'small'
 
 type Props = {
-  children: React.ReactNode
   className?: string
   modifiers?: Modifiers | Modifiers[]
   onClick?: () => void

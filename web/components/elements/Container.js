@@ -8,6 +8,6 @@ const Container = ({ children, className }) => {
 export default styled(Container)(
   ({ theme }) => css`
     max-width: 100%;
-    ${theme.spacing.container('px')}
+    ${theme.spacing.container('mx')};
   `
 )

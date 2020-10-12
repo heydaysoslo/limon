@@ -8,7 +8,7 @@ import Container from '@heydays/Container'
 const Page = ({ className, title, content, pagebuilder, ...props }) => {
   return (
     <div className={className}>
-      <Container className="Page__container">
+      <Container>
         <header className="Page__header">
           <P>Page</P>
           {title && <H1>{title}</H1>}

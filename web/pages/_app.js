@@ -6,6 +6,7 @@ import { AnimatePresence } from 'framer-motion'
 import 'lazysizes/plugins/respimg/ls.respimg.js'
 import 'lazysizes/plugins/attrchange/ls.attrchange.js'
 import 'lazysizes'
+import 'default-passive-events'
 
 import '../styles/reset.css'
 
@@ -15,28 +16,38 @@ import Header from 'components/Header'
 import SEO from 'components/SEO'
 import Footer from '../components/Footer'
 import { SanityProvider } from '../components/context/sanityContext'
+import { AppProvider } from 'components/context/appContext'
+import useAppContext from '@heydays/useAppContext'
 // import SvgFilter from 'components/SvgFilter'
 
-function MyApp({ Component, pageProps }) {
-  const [isDark, setIsDark] = React.useState(false)
+function MyApp(props) {
   return (
     <SanityProvider>
-      <ThemeProvider theme={isDark ? darkTheme : theme}>
-        <Head>
-          <link href="/fonts/fonts.css" rel="stylesheet" />
-        </Head>
-        <SEO
-          page={pageProps?.frontpage || pageProps?.article || pageProps?.page}
-        />
-        <Header isDark={isDark} setIsDark={setIsDark} />
-        <GlobalStyle />
-        <AnimatePresence exitBeforeEnter>
-          <Component {...pageProps} />
-        </AnimatePresence>
-        <Footer />
-        {/* <SvgFilter /> */}
-      </ThemeProvider>
+      <AppProvider>
+        <Inner {...props} />
+      </AppProvider>
     </SanityProvider>
+  )
+}
+
+const Inner = ({ Component, pageProps }) => {
+  const { state } = useAppContext()
+  return (
+    <ThemeProvider theme={state.isStoreOpen ? theme : darkTheme}>
+      <Head>
+        <link href="/fonts/fonts.css" rel="stylesheet" />
+      </Head>
+      <SEO
+        page={pageProps?.frontpage || pageProps?.article || pageProps?.page}
+      />
+      <Header />
+      <GlobalStyle />
+      <AnimatePresence exitBeforeEnter>
+        <Component {...pageProps} />
+      </AnimatePresence>
+      <Footer />
+      {/* <SvgFilter /> */}
+    </ThemeProvider>
   )
 }
 

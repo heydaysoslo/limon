@@ -10,13 +10,19 @@ const TextSection = ({ className, body }) => {
   )
 }
 
-export default styled(TextSection)(({ theme, themeName }) => {
+export default styled(TextSection)(({ theme, themeName, alignment }) => {
   return css`
     color: ${theme.colors.text};
     background-color: ${theme.colors.background};
-    ${themeName === 'darkTheme' &&
+    ${themeName === 'inverted'
+      ? css`
+          ${theme.spacing.lg('p')};
+        `
+      : css`
+          ${theme.spacing.container('px')};
+        `}
+    ${alignment === 'center' &&
       css`
-        ${theme.spacing.lg('p')};
         text-align: center;
       `}
   `

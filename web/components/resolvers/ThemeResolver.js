@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider, useTheme } from 'styled-components'
 
 export default function ThemeResolver({ themeName, children }) {
   const [theme, setTheme] = useState(null)
+  const currentTheme = useTheme()
 
   useEffect(() => {
     if (themeName && themeName !== 'defaultTheme') {
+      const nextTheme =
+        currentTheme.name === 'defaultTheme' ? 'darkTheme' : 'defaultTheme'
       // Dynamically import template
-      import(`../../styles/themes/${themeName}.ts`)
+      import(
+        `../../styles/themes/${
+          themeName === 'inverted' ? nextTheme : themeName
+        }.ts`
+      )
         .then(comp => setTheme(() => comp.default))
         .catch(err => console.log(err))
     }

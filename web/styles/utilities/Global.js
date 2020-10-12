@@ -3,12 +3,21 @@ import { globalTypeStyle } from './Typography'
 
 export const GlobalStyle = createGlobalStyle(
   ({ theme }) => css`
+    :root {
+      --document-height: 10000px;
+      --header-height: 0px;
+    }
+
     html {
       font-size: 62.5%;
+	    scroll-behavior: smooth;
     }
-  :root {
-    --document-height: 10000px;
-  }
+
+    /* #portal {
+      position: fixed;
+      top: 0;
+      left: 0;
+    } */
 
     body {
       position: relative;
@@ -30,6 +39,15 @@ export const GlobalStyle = createGlobalStyle(
         z-index: -1;
           filter: url(#roughpaper);
       } */
+    }
+
+    #portal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: ${theme.elevation[4] + 1};
+      transform: translateY(var(--header-height));
     }
 
     ::selection {

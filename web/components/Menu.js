@@ -1,81 +1,86 @@
 import AnimateInView from '@heydays/animation/AnimateInView'
 import Button from '@heydays/Button'
 import CloudinaryMediaResolver from '@heydays/CloudinaryMediaResolver'
+import Container from '@heydays/Container'
 import { H2 } from '@heydays/Typography'
+import { useRouter } from 'next/router'
 import React from 'react'
 import styled, { css, useTheme } from 'styled-components'
 import { random } from 'utils/helpers'
 import Editor from './editor'
-import FloatingWord from './FloatingWord'
+import FloatingButton from './FloatingButton'
 
 const ROTATIONS = [5, -5]
 
 const Menu = ({ className, foodMenu }) => {
   const theme = useTheme()
+  const router = useRouter()
   return (
-    <div className={className} id="menuAnchor">
-      {foodMenu?.categories?.map(category => (
-        <div className="category" key={category._key}>
-          {category?.title && (
-            <header className="category__header">
-              <h2
-                style={{
-                  transform: `rotate(${
-                    ROTATIONS[random(0, ROTATIONS.length)]
-                  }deg)`
-                }}
-                className="category__title"
-              >
-                {category?.title}
-              </h2>
-            </header>
-          )}
-          <div className="category__content">
-            {category?.media && (
-              <div className="category__image">
-                <AnimateInView threshold={0.5}>
-                  <CloudinaryMediaResolver node={category.media} />
-                </AnimateInView>
-              </div>
+    <Container>
+      <div className={className} id="menuAnchor">
+        {foodMenu?.categories?.map(category => (
+          <div className="category" key={category._key}>
+            {category?.title && (
+              <header className="category__header">
+                <h2
+                  style={{
+                    transform: `rotate(${
+                      ROTATIONS[random(0, ROTATIONS.length)]
+                    }deg)`
+                  }}
+                  className="category__title"
+                >
+                  {category?.title}
+                </h2>
+              </header>
             )}
-            {category?.items?.length > 0 && (
-              <ul className="category__list">
-                {category.items.map(item => (
-                  <AnimateInView key={item._key} initial={{ zIndex: -1 }}>
-                    <li className="item">
-                      {item?.title && (
-                        <H2 as="h3" className="item__header">
-                          {item.title}
-                        </H2>
-                      )}
-                      {item?.description && (
-                        <Editor blocks={item.description} />
-                      )}
-                      {item?.price && (
-                        <H2 as="p" className="item__price">
-                          {item.price},-
-                        </H2>
-                      )}
-                    </li>
+            <div className="category__content">
+              {category?.media && (
+                <div className="category__image">
+                  <AnimateInView threshold={0.5}>
+                    <CloudinaryMediaResolver node={category.media} />
                   </AnimateInView>
-                ))}
-              </ul>
-            )}
+                </div>
+              )}
+              {category?.items?.length > 0 && (
+                <ul className="category__list">
+                  {category.items.map(item => (
+                    <AnimateInView key={item._key} initial={{ zIndex: -1 }}>
+                      <li className="item">
+                        {item?.title && (
+                          <H2 as="h3" className="item__header">
+                            {item.title}
+                          </H2>
+                        )}
+                        {item?.description && (
+                          <Editor blocks={item.description} />
+                        )}
+                        {item?.price && (
+                          <H2 as="p" className="item__price">
+                            {item.price},-
+                          </H2>
+                        )}
+                      </li>
+                    </AnimateInView>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
+        ))}
+        {foodMenu?.allergens && (
+          <div className="allergens">
+            <h3 className="allergens__title">Allergener</h3>
+            <Editor blocks={foodMenu.allergens} />
+          </div>
+        )}
+        <div className="actions">
+          <FloatingButton onClick={() => router.push(`http://weorder.com`)}>
+            ORDER
+          </FloatingButton>
         </div>
-      ))}
-      {foodMenu?.allergens && (
-        <div className="allergens">
-          <h3 className="allergens__title">Allergener</h3>
-          <Editor blocks={foodMenu.allergens} />
-        </div>
-      )}
-      <div className="actions">
-        <Button style={{ width: '100%' }}>
-          {/* <FloatingWord word="ORDER" color={theme.colors.background} /> */}
-        </Button>
       </div>
-    </div>
+    </Container>
   )
 }
 
@@ -111,7 +116,7 @@ export default styled(Menu)(
 
       &__header {
         position: sticky;
-        top: 0;
+        top: calc(var(--header-height) - 1px);
         z-index: 1;
         background: ${`linear-gradient(180deg, ${t.colors.background} 60%, transparent)`};
         &:before {
@@ -128,6 +133,7 @@ export default styled(Menu)(
       &__title {
         ${t.fonts.superLarge()};
         text-transform: uppercase;
+        display: inline-block;
       }
 
       &__image {

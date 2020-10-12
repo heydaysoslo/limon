@@ -21,7 +21,7 @@ export const SanityProvider = ({ children }) => {
         const newCompanyInfo = await getCompanyInfo()
         const newSiteSettings = await getSettings()
         setCompanyInfo(newCompanyInfo[0])
-        setSiteSettings(newSiteSettings[0])
+        setSiteSettings(newSiteSettings)
         setIsLoading(false)
       } catch (err) {
         setIsLoading(false)

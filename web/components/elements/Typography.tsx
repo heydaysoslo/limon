@@ -1,11 +1,10 @@
-import styled, { css, DefaultTheme } from 'styled-components'
+import styled, { css, DefaultTheme, FlattenSimpleInterpolation } from 'styled-components'
 
 import { applyModifier } from '../../styles/utilities'
 
 type Modifiers = 'large' | 'small'
 
 type PModifiers = {
-  theme: DefaultTheme
   modifiers: Modifiers | Modifiers[] | null | undefined
 }
 
@@ -16,18 +15,17 @@ export const P = styled.p<PModifiers>(
         ${theme.fonts.body()}
       `}
 
-    ${applyModifier(
+      ${modifiers && applyModifier(
       'small',
       css`
         ${theme.fonts.small()};
       `
     )}
-    ${applyModifier(
+    ${modifiers && applyModifier(
       'large',
       css`
         ${theme.fonts.superLarge()};
         text-transform: uppercase;
-        background: orange;
       `
     )}
   `

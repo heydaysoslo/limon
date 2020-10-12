@@ -68,7 +68,7 @@ export const responsiveSpacing = {
     lg: 'gutter'
   },
   container: {
-    xs: '10px',
+    xs: '50px',
     md: 'lg',
     lg: '5vw'
   },
@@ -131,15 +131,22 @@ export const aspect = {
   panorama: 11 / 16
 }
 
+export const elevation = {
+  1: 9,
+  2: 99,
+  3: 999,
+  4: 9999
+}
+
 export const contentWidth = {
   small: remSize(600),
   large: remSize(1200)
 }
 
 export const icons = {
-  small: remSize(40),
-  medium: remSize(80),
-  large: remSize(160)
+  small: remSize(20),
+  medium: remSize(40),
+  large: remSize(60)
 }
 
 export const trans = {
@@ -189,6 +196,7 @@ const fonts: fontFuncs = fontFactory({ responsiveFonts, bp })
  */
 
 const theme: DefaultTheme = {
+  name: 'defaultTheme',
   colors,
   breakpoints,
   color,
@@ -197,6 +205,7 @@ const theme: DefaultTheme = {
   grid,
   fontFamily,
   aspect,
+  elevation,
   fonts,
   responsiveFonts,
   spacing,

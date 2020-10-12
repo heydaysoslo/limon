@@ -4,24 +4,29 @@ import useIsFontLoaded from './hooks/useIsFontLoaded'
 import dynamic from 'next/dynamic'
 import { useInView } from 'react-intersection-observer'
 import { usePageVisibility } from '@heydays/usePageVisibility'
+import useSanity from '@heydays/useSanity'
 
 const Scene = dynamic(() => import('./Scene'))
 
-const Hero = ({ className, navigation }) => {
+const Hero = ({ className }) => {
   const hero = useRef(null)
   const isPageVisible = usePageVisibility()
-  const { isFontLoaded, error } = useIsFontLoaded()
-  const [ref, inView, entry] = useInView({
+  const { isFontLoaded } = useIsFontLoaded()
+  const [ref, inView] = useInView({
     /* Optional options */
-    threshold: 0.7,
+    threshold: 0.1,
     triggerOnce: false
   })
+  const data = useSanity()
   return (
     <div ref={ref}>
       <div className={className} ref={hero}>
-        {isFontLoaded && inView && isPageVisible && (
-          <Scene wrapper={hero} words={navigation} />
-        )}
+        {isFontLoaded &&
+          inView &&
+          isPageVisible &&
+          data?.siteSettings?.primaryMenu?.item && (
+            <Scene wrapper={hero} words={data.siteSettings.primaryMenu.item} />
+          )}
       </div>
     </div>
   )
@@ -29,6 +34,7 @@ const Hero = ({ className, navigation }) => {
 
 export default styled(Hero)(
   ({ theme }) => css`
+    width: 100%;
     height: 70vh;
   `
 )

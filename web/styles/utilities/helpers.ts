@@ -1,4 +1,4 @@
-import { css, CSSObject } from 'styled-components'
+import { css, CSSObject, DefaultTheme, FlattenSimpleInterpolation } from 'styled-components'
 
 /**
  * 'mb', '20px' => 'margin-botton: 20px'
@@ -58,7 +58,9 @@ export const parseCssUnit = cssUnit => {
   return { number, unit }
 }
 
-export const applyModifier = (modifier, css) => ({ modifiers }) => {
+type applyModifier = (modifier: string, css: FlattenSimpleInterpolation) => (args: {modifiers: string[] | string | null | undefined}) => FlattenSimpleInterpolation | null
+
+export const applyModifier: applyModifier = (modifier, css) => ({ modifiers }) => {
   if (!modifiers) return null
   return modifiers === modifier || modifiers.includes(modifier) ? css : null
 }

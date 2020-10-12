@@ -6,15 +6,19 @@ import { useRouter } from 'next/router'
 import useInterval from '@heydays/useInterval'
 import useWindowSize from '@heydays/useWindowSize'
 import { random, createImage } from '../utils/helpers'
-import VisuallyHidden from '@heydays/VisuallyHidden'
 import { useTheme } from 'styled-components'
+import { useInView } from 'react-intersection-observer'
 
-const Scene = ({ wrapper, words, noHinders, color }) => {
+const FloatingButton = ({ className, color, children, onClick }) => {
+  const [ref, inView, entry] = useInView({
+    /* Optional options */
+    threshold: 0.7,
+    triggerOnce: false
+  })
+  const wrapper = useRef(null)
   const container = useRef(null)
   const [matterEngine, setMatterEngine] = useState(null)
-  const [lastSize, setLastSize] = useState(null)
   const windowSize = useWindowSize({ debounce: 250 })
-  const svg = useRef(null)
   const router = useRouter()
   const theme = useTheme()
 
@@ -35,7 +39,6 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
       Render = Matter.Render
       const World = Matter.World
       const Bodies = Matter.Bodies
-      const Svg = Matter.Svg
       const Composites = Matter.Composites
       const Vertices = Matter.Vertices
       const Common = Matter.Common
@@ -79,19 +82,6 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
           }
         }
       })
-      const hinderSize = {
-        width: 6,
-        height: 6
-      }
-      const hinderOptions = angle => ({
-        render: {
-          fillStyle: 'transparent',
-          strokeStyle: 'none',
-          lineWidth: 0
-        },
-        angle,
-        isStatic: true
-      })
       const wallWidth = 50
       const wallOptions = {
         render: {
@@ -101,48 +91,36 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
         },
         isStatic: true
       }
-      const images = words.map(word => {
-        return typeof word === 'string'
-          ? createImage(
-              word,
-              Math.max(50, Math.min(width / 10, 150)),
-              color || theme.colors.text
-            )
-          : createImage(
-              word.title || word.linkText,
-              Math.max(50, Math.min(width / 10, 150)),
-              color || theme.colors.text
-            )
-      })
-      const newBodies = images.map((word, i) => {
-        return Bodies.rectangle(
-          random(100, width - 100),
-          random(100, height - 100),
-          word.dimension.measure.width,
-          word.dimension.height,
-          {
-            restitution: 0.5,
-            words: {
-              word: words[i],
-              image: word.image,
-              hoverImage: word.hoverImage
-            },
-            render: {
-              sprite: {
-                texture: word.image,
-                xScale: 1,
-                yScale: 1,
-                rotate: random(-50, 50)
-              }
+      const word = createImage(
+        children,
+        Math.max(50, Math.min(width / 10, 150)),
+        color || theme.colors.text,
+        true,
+        theme.colors.background
+      )
+      const button = Bodies.rectangle(
+        width / 2,
+        height / 2,
+        word.dimension.measure.width,
+        word.dimension.height,
+        {
+          restitution: 0.5,
+          words: {
+            word: word,
+            image: word.image,
+            hoverImage: word.hoverImage,
+            onClick
+          },
+          render: {
+            sprite: {
+              texture: word.image,
+              xScale: 1,
+              yScale: 1,
+              rotate: random(-50, 50)
             }
           }
-        )
-      })
-      // images.map(body => {
-      //   Body.rotate(body, random(-0.2, 0.2))
-      //   Body.setMass(body, random(0, 10))
-      //   Body.setDensity(body, random(0, 10))
-      // })
+        }
+      )
       World.add(engine.world, [
         // walls
         //Top
@@ -153,74 +131,27 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
         Bodies.rectangle(0, height / 2, wallWidth, height, wallOptions),
         // Right
         Bodies.rectangle(width, height / 2, wallWidth, height, wallOptions),
-        // Hinders
-        !noHinders &&
-          Bodies.rectangle(
-            width / 2,
-            height / 2,
-            hinderSize.width,
-            hinderSize.height,
-            hinderOptions(random(-0.4, 0.4, { float: true }))
-          ),
-        ...[...new Array(noHinders ? 0 : 5)].map((_, i) =>
-          Bodies.rectangle(
-            random(0, width),
-            random(0, height),
-            hinderSize.width,
-            hinderSize.height,
-            hinderOptions(random(-0.4, 0.4, { float: true }))
-          )
-        ),
-        ...newBodies,
-        // stack,
+        // Button
+        button,
         mouseConstraint
       ])
 
       Matter.Events.on(mouseConstraint, 'mousedown', function(event) {
         if (mouseConstraint.body) {
-          if (
-            mouseConstraint?.body?.render?.sprite?.texture &&
-            mouseConstraint.body.words.image
-          ) {
-            mouseConstraint.body.render.sprite.texture =
-              mouseConstraint.body.words.hoverImage
-            console.log(mouseConstraint?.body?.words.word?._type)
-
-            if (mouseConstraint?.body?.words.word?._type === 'scrollLink') {
-              router.push(`#${mouseConstraint.body.words.word.id}`)
-            } else if (mouseConstraint?.body?.words.word?._type === 'link') {
-              console.log('external link')
-              window.open(mouseConstraint?.body?.words.word?.href, '_blank')
-            }
+          console.log(
+            'FloatingButton -> mouseConstraint.body',
+            mouseConstraint.body?.words.onClick
+          )
+          if (mouseConstraint?.body?.words?.onClick) {
+            mouseConstraint.body.words.onClick()
           }
         }
       })
-      // const handleMousemove = debounce(e => {
-      //   if (engine?.world?.bodies) {
-      //     // console.log(engine?.world?.bodies)
-      //     engine.world.bodies.map(body => {
-      //       // console.log(mouseConstraint, body)
-      //       console.log(
-      //         mouseConstraint?.mouse?.position?.x,
-      //         body?.bounds?.min?.x
-      //       )
-      //       const isWithinBounds =
-      //         mouseConstraint?.mouse?.position?.x > body?.bounds?.min?.x &&
-      //         mouseConstraint?.mouse?.position?.x < body?.bounds?.max?.x &&
-      //         mouseConstraint?.mouse?.position?.y > body?.bounds?.min?.y &&
-      //         mouseConstraint?.mouse?.position?.y < body?.bounds?.may?.x
-      //       console.log('TCL: Scene -> isWithinBounds', isWithinBounds)
-      //       if (isWithinBounds) {
-      //         console.log('IS HOVERING', body)
-      //       }
-      //     })
-      //   }
-      // }, 50)
       // // CreateListeners for bodies
       // Matter.Events.on(mouseConstraint, 'mousemove', handleMousemove)
       Matter.Events.on(mouseConstraint, 'mousemove', function(event) {
         //For Matter.Query.point pass "array of bodies" and "mouse position"
-        var bodies = Matter.Query.point(newBodies, event.mouse.position)
+        var bodies = Matter.Query.point([button], event.mouse.position)
         if (engine?.world?.bodies) {
           engine.world.bodies
             .filter(body => body !== bodies[0])
@@ -232,7 +163,6 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
               return null
             })
         }
-
         if (bodies[0]?.render?.sprite?.texture && bodies[0]?.words.image) {
           event.mouse.element.style.cursor = 'pointer'
           bodies[0].render.sprite.texture = bodies[0].words.hoverImage
@@ -258,12 +188,27 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
     }
   }, [windowSize, theme])
 
-  return <div ref={container} />
+  return (
+    <div className={className} ref={ref}>
+      <button className="wrapper" ref={wrapper}>
+        <div ref={container} />
+      </button>
+    </div>
+  )
 }
 
-export default styled(Scene)(
+export default styled(FloatingButton)(
   ({ theme }) => css`
     width: 100%;
     max-width: 100%;
+    .wrapper {
+      display: block;
+      width: 100%;
+      height: 200px;
+      outline: 0;
+      ${theme.bp.lg} {
+        height: 400px;
+      }
+    }
   `
 )
