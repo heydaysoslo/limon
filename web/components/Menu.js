@@ -118,7 +118,9 @@ export default styled(Menu)(
         position: sticky;
         top: calc(var(--header-height) - 1px);
         z-index: 1;
-        background: ${`linear-gradient(180deg, ${t.colors.background} 60%, transparent)`};
+        background: ${`linear-gradient(180deg, ${
+          t.colors.background
+        } 60%, ${t.color.rgba(t.colors.background, 0.01)})`};
         &:before {
           content: '';
           position: absolute;

@@ -66,7 +66,9 @@ const Wrapper = styled(motion.div)(
     width: 100%;
     height: 100vh;
     background-color: ${theme.color.rgba(theme.colors.background, 0.9)};
-    background: ${`radial-gradient(${theme.colors.background} 30%, transparent)`};
+    background-image: ${`radial-gradient(${
+      theme.colors.background
+    } 30%, ${theme.color.rgba(theme.colors.background, 0.01)})`};
   `
 )
 
