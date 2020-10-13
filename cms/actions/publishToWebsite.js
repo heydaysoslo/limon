@@ -1,4 +1,5 @@
 import React from 'react'
+import config from '../heydays-config'
 
 export function publishToWebsite() {
   const [isDialogOpen, setDialogOpen] = React.useState(false)
@@ -6,16 +7,13 @@ export function publishToWebsite() {
   return {
     label: `Publish to website`,
     onHandle: () => {
-      fetch(
-        'https://api.vercel.com/v1/integrations/deploy/QmdR6S5oBzM5JpVTdHwFCynFJoH7WRsRtdri8M2fXH7PER/TDkE1m3q3K',
-        {
-          method: 'POST'
-        }
-      )
+      fetch(config.buildHookUrl, {
+        method: 'POST'
+      })
       setDialogOpen(true)
       setTimeout(() => {
         setDialogOpen(false)
-      }, 2000)
+      }, 6000)
     },
     dialog: isDialogOpen && {
       type: 'modal',

@@ -13,6 +13,8 @@ export default {
     production: 'https://heydays-starter.netlify.com/_preview/',
     dev: 'http://localhost:3000/_preview/'
   },
+  buildHookUrl:
+    'https://api.vercel.com/v1/integrations/deploy/QmdR6S5oBzM5JpVTdHwFCynFJoH7WRsRtdri8M2fXH7PER/TDkE1m3q3K',
   /**
    * Page Types
    *
