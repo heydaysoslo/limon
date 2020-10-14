@@ -5,7 +5,8 @@ import { applyModifier } from '../../styles/utilities'
 type Modifiers = 'large' | 'small'
 
 type PModifiers = {
-  modifiers: Modifiers | Modifiers[] | null | undefined
+  theme: DefaultTheme
+  modifiers?: Modifiers | Modifiers[] | null | undefined
 }
 
 export const P = styled.p<PModifiers>(
@@ -14,14 +15,13 @@ export const P = styled.p<PModifiers>(
       css`
         ${theme.fonts.body()}
       `}
-
-      ${modifiers && applyModifier(
+    ${applyModifier(
       'small',
       css`
         ${theme.fonts.small()};
       `
     )}
-    ${modifiers && applyModifier(
+    ${applyModifier(
       'large',
       css`
         ${theme.fonts.superLarge()};

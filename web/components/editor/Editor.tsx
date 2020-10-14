@@ -48,10 +48,10 @@ export const serializers = {
           )
 
         case 'span':
-          return <P modifiers={null} as="span">{props.children}</P>
+          return <P as="span">{props.children}</P>
 
         default:
-          return <P modifiers={null}>{props.children}</P>
+          return <P>{props.children}</P>
       }
     },
     button(props) {
