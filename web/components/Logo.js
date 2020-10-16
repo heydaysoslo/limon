@@ -21,6 +21,10 @@ const Logo = ({ className }) => {
 
 export default styled(Logo)(
   ({ theme }) => css`
-    height: 50px;
+    height: 35px;
+
+    ${theme.bp.lg} {
+      height: 50px;
+    }
   `
 )

@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import Switch from '@heydays/Switch'
 import Container from './elements/Container'
 import Logo from './Logo'
 import useAppContext from '@heydays/useAppContext'
@@ -16,7 +15,7 @@ import OpeningHours from './OpeningHours'
 const Header = ({ className }) => {
   const header = useRef(null)
   const { state, actions } = useAppContext()
-  const windowSize = useWindowSize()
+  const windowSize = useWindowSize({ debounce: 200 })
 
   useLayoutEffect(() => {
     const height = header?.current?.getBoundingClientRect()?.height
@@ -26,7 +25,9 @@ const Header = ({ className }) => {
   return (
     <Container>
       <motion.div className={className} ref={header}>
-        <OpeningHours />
+        <div className="item">
+          <OpeningHours />
+        </div>
         <h1 className="logo">
           <Link href="/">
             <a aria-label="logo and home button">
@@ -34,10 +35,12 @@ const Header = ({ className }) => {
             </a>
           </Link>
         </h1>
-        <Hamburger
-          isOpen={state.isMenuOpen}
-          onClick={() => actions.toggleMenu()}
-        />
+        <div className="item">
+          <Hamburger
+            isOpen={state.isMenuOpen}
+            onClick={() => actions.toggleMenu()}
+          />
+        </div>
         <Portal>
           <AnimatePresence>
             {state.isMenuOpen && (
@@ -86,10 +89,27 @@ export default styled(Header)(
     width: 100%;
     background: ${theme.colors.background};
 
+    .item {
+      width: 110px;
+
+      &:first-of-type {
+        display: flex;
+        align-items: flex-end;
+      }
+
+      &:nth-of-type(2) {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+    }
+
     .logo {
-      width: 80%;
       flex-grow: 1;
       text-align: center;
+    }
+
+    ${theme.bp.lg} {
     }
   `
 )

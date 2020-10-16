@@ -12,12 +12,6 @@ const options = {
 
 const client = sanityClient(options)
 
-export const previewClient = sanityClient({
-  ...options,
-  useCdn: false,
-  token: process.env.NEXT_PUBLIC_SANITY_TOKEN
-})
-
 export const BASE_ARTICLE = `
   _id,
   title,
@@ -107,7 +101,7 @@ export const getArticle = params => {
   return client.fetch(query, params)
 }
 
-export const getPreview = (query, params) => {
+export const getPreview = (previewClient, query, params) => {
   return previewClient.fetch(query, params)
 }
 

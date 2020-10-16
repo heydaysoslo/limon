@@ -1,4 +1,8 @@
-import styled, { css, DefaultTheme, FlattenSimpleInterpolation } from 'styled-components'
+import styled, {
+  css,
+  DefaultTheme,
+  FlattenSimpleInterpolation
+} from 'styled-components'
 
 import { applyModifier } from '../../styles/utilities'
 
@@ -47,5 +51,12 @@ export const H2 = styled.h2(
 export const H3 = styled.h3(
   ({ theme }) => css`
     ${theme.fonts.title?.()}
+  `
+)
+
+export const A = styled.a(
+  ({ theme }) => css`
+    color: currentColor;
+    text-decoration: underline;
   `
 )

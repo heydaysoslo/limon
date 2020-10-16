@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
-import { getPreview, PAGEBUILDER, previewClient } from 'lib/sanity'
 import { useRouter } from 'next/router'
+import sanityClient from '@sanity/client'
+
+import { getPreview, PAGEBUILDER } from 'lib/sanity'
 
 import TemplateResolver from '@heydays/TemplateResolver'
 import Head from 'next/head'
@@ -14,6 +16,12 @@ const Preview = ({ className }) => {
   const fetchTimer = useRef(null)
 
   useEffect(() => {
+    const previewClient = sanityClient({
+      projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+      dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+      useCdn: false,
+      token: router?.query?.access_token
+    })
     const query = `
     {
       "siteSettings": *[_type == "siteSettings"] {
@@ -49,7 +57,11 @@ const Preview = ({ className }) => {
 
       const fetchPreview = async () => {
         console.log('FETCHING PREVIEW')
-        const { data, siteSettings } = await getPreview(query, params)
+        const { data, siteSettings } = await getPreview(
+          previewClient,
+          query,
+          params
+        )
         const isPreviewable = PREVIEWABLE_TYPES.includes(data[0]._type)
         let page = data[0]
 

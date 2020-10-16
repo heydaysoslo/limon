@@ -1,4 +1,5 @@
 import React from 'react'
+import { responsiveSpacing } from '../../../web/styles/themes/defaultTheme'
 
 const strongRenderer = props => (
   <span style={{ fontWeight: 'bold' }}>{props.children}</span>
@@ -102,6 +103,9 @@ const editor = {
     },
     {
       type: 'accordion'
+    },
+    {
+      type: 'spacer'
     }
   ]
 }

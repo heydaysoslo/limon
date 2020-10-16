@@ -1,5 +1,5 @@
 import { utcToZonedTime } from 'date-fns-tz'
-import { getDay, isWithinInterval } from 'date-fns'
+import { formatDistance, getDay, isWithinInterval } from 'date-fns'
 
 const WEEKDAYS = [
   'sunday',
@@ -9,10 +9,15 @@ const WEEKDAYS = [
   'thursday',
   'friday',
   'saturday'
-]
+] as const
 
-const checkIfStoreIsOpen = openingHours => {
-  if (!openingHours) return null
+type weekdays = typeof WEEKDAYS[number]
+
+type openingHours = {
+  [weekday in weekdays]: { from: string; to: string }
+}
+
+const getOpeningsHours = (openingHours: openingHours) => {
   const now = utcToZonedTime(new Date(), 'Europe/Oslo')
   const day = now.getDay()
   // Convert day from number into string eg. 0 === 'sunday' || 1 === 'monday'
@@ -30,15 +35,37 @@ const checkIfStoreIsOpen = openingHours => {
   let [closingHour, closingMinute] = openingDay.to
     .split(':')
     .map(item => parseInt(item))
+
   // Construct opening date with opening time
   const openingTime = new Date(year, month, date, openingHour, openingMinute, 0)
   // Construct closing date with closing time
   const closingTime = new Date(year, month, date, closingHour, closingMinute, 0)
+
+  return {
+    opening: openingTime,
+    closing: closingTime
+  }
+}
+
+const checkIfStoreIsOpen = (openingHours: openingHours) => {
+  if (!openingHours) return null
+  const now = utcToZonedTime(new Date(), 'Europe/Oslo')
+  const { opening, closing } = getOpeningsHours(openingHours)
   // Check if now is between opening and closing time
   return isWithinInterval(now, {
-    start: openingTime,
-    end: closingTime
+    start: opening,
+    end: closing
   })
+}
+
+export const getRemainingTime = (openingHours: openingHours) => {
+  if (!openingHours) return null
+  const now = utcToZonedTime(new Date(), 'Europe/Oslo')
+  const { opening, closing } = getOpeningsHours(openingHours)
+  const isOpen = checkIfStoreIsOpen(openingHours)
+  return isOpen
+    ? formatDistance(now, closing, { addSuffix: false })
+    : formatDistance(opening, now, { addSuffix: false })
 }
 
 export default checkIfStoreIsOpen

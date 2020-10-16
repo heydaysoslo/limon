@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
+import heydaysConfig from '../../../../heydays-config'
 
 class Preview extends React.PureComponent {
   static propTypes = {
@@ -29,9 +30,9 @@ class Preview extends React.PureComponent {
 
     const url = `${
       isLocal
-        ? 'http://localhost:3000/preview/'
-        : 'https://limon.heydays.vercel.app/preview/'
-    }${displayed._id}`
+        ? heydaysConfig.previewUrl.production
+        : heydaysConfig.previewUrl.dev
+    }${displayed._id}?access_token=${heydaysConfig.access_token}`
 
     if (!displayed._id) return null
 

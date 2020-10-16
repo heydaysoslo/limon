@@ -22,11 +22,7 @@ const Hamburger: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <button
-      className={className}
-      onClick={onClick}
-      {...props}
-    >
+    <button className={className} onClick={onClick} {...props}>
       <motion.div
         className="outer"
         initial={{ origin: 0.5 }}
@@ -80,13 +76,6 @@ export default styled(Hamburger)(
     flex-direction: column;
     justify-content: space-between;
     outline: 0;
-
-
-    /* .outer:nth-of-type(2) {
-      .line {
-        margin-bottom: -1px;
-      }
-    } */
 
     .line {
       width: ${width}px;

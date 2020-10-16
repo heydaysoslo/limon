@@ -10,6 +10,7 @@ import Button from '@heydays/Button'
 import Accordion from '@heydays/Accordion'
 import styled, { css } from 'styled-components'
 import FloatingButton from 'components/FloatingButton'
+import Spacer from '@heydays/Spacer'
 
 export const serializers = {
   types: {
@@ -91,17 +92,18 @@ export const serializers = {
     accordion(props) {
       // @ts-ignore
       return <Accordion items={props.node.items} exclusive defaultActive={2} />
+    },
+    spacer(props) {
+      return <Spacer size={props.node.space} />
     }
   },
   marks: {
     link(props) {
-      const link = props?.mark?.externalLink?.url || props?.mark?.reference
-      if (!link) return props.children
       return (
         <LinkResolver
           className=""
           openInNewTab={props?.mark?.externalLink?.blank}
-          link={link}
+          link={props.mark}
         >
           {props.children ||
             props?.mark?.title ||

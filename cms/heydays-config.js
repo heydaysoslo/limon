@@ -9,10 +9,18 @@ import MdPerson from 'react-icons/lib/md/person'
  */
 
 export default {
+  /**
+   * Used in Preview comp
+   */
   previewUrl: {
-    production: 'https://heydays-starter.netlify.com/_preview/',
-    dev: 'http://localhost:3000/_preview/'
+    production: 'https://limon.heydays.vercel.app/preview/',
+    dev: 'http://localhost:3000/preview/'
   },
+  /**
+   * Used in Preview comp
+   */
+  access_token:
+    'skrB5IUvRDgqr6Mwhagwf70EFjWv2EbKEVuwRljH98oSMg3LixNIsCDMwEnRzXDTmgk3AeKNLr4RuzK910YbGpiP2GGaxnra8bQiExsSrFPXqp71QHqEXSx3vGllZfLAewJj36KEjYLuOeoeBGbFMmrJQ5xCuR5j5whx0UVOvBJRwMMHwQMQ',
   buildHookUrl:
     'https://api.vercel.com/v1/integrations/deploy/QmdR6S5oBzM5JpVTdHwFCynFJoH7WRsRtdri8M2fXH7PER/TDkE1m3q3K',
   /**

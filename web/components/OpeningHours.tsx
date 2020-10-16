@@ -5,13 +5,14 @@ import useSanity from '@heydays/useSanity'
 import Editor from './editor'
 import useInterval from '@heydays/useInterval'
 import { AnimatePresence, motion } from 'framer-motion'
-import checkIfStoreIsOpen from 'utils/openingHours'
+import checkIfStoreIsOpen, { getRemainingTime } from 'utils/openingHours'
 import useAppContext from '@heydays/useAppContext'
 
 const OpeningHours = ({ className }) => {
   const data = useSanity()
   const [isOpen, setIsOpen] = useState(false)
   const [isStoreOpen, setIsStoreOpen] = useState<boolean | null>(null)
+  const [remainingTime, setRemainingTime] = useState<string | null>(null)
   const theme = useTheme()
   const { actions } = useAppContext()
 
@@ -19,10 +20,12 @@ const OpeningHours = ({ className }) => {
     const openState = checkIfStoreIsOpen(data?.companyInfo?.openingHoursData)
     setIsStoreOpen(openState)
     actions.setIsStoreOpen(openState)
+    setRemainingTime(getRemainingTime(data?.companyInfo?.openingHoursData))
   }, [data])
 
   useInterval(() => {
     const openState = checkIfStoreIsOpen(data?.companyInfo?.openingHoursData)
+    setRemainingTime(getRemainingTime(data?.companyInfo?.openingHoursData))
     // Don't set uneccesary state. This will trigger render on the whole app
     if (isStoreOpen !== openState) {
       setIsStoreOpen(openState)
@@ -45,7 +48,8 @@ const OpeningHours = ({ className }) => {
       >
         {isStoreOpen === null && 'Opening hours'}
         {typeof isStoreOpen === 'boolean' &&
-          (isStoreOpen ? 'Open now' : 'Closed now')}
+          (isStoreOpen ? 'Open for ' : 'Opening in ')}
+        {remainingTime}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -70,16 +74,38 @@ const OpeningHours = ({ className }) => {
 export default styled(OpeningHours)(
   ({ theme: t }) => css`
     position: relative;
+    white-space: nowrap;
+    display: flex;
+    align-items: flex-end;
+    min-width: 100%;
+    order: 1;
+    margin-top: ${t.spacingUnit?.sm};
+
+    ${t.bp.md} {
+      min-width: auto;
+      order: 0;
+    }
+
+    button {
+      ${t.fonts.small()};
+      line-height: 1;
+    }
+
     .info-table {
-      ${t.spacing.sm(['px', 'pb'])};
+      position: absolute;
+      z-index: -1;
+      ${t.spacing.md('px')};
+      ${t.spacing.lg('pb')};
       ${t.spacing.sm(['top', 'left'], { negative: true })};
       background: ${t.colors.text};
       color: ${t.colors.background};
-      position: absolute;
-      z-index: -1;
       text-align: left;
       padding-top: 2em;
-      width: 25ch;
+      width: 30ch;
+
+      * {
+        ${t.fonts.small()};
+      }
     }
   `
 )

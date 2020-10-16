@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import useLinkResolver from '../hooks/useLinkResolver'
+import { A } from '@heydays/Typography'
 
 export const resolveLinkText = ({ children, customText, link }) => {
   if (children) {
@@ -30,9 +31,9 @@ export const InternalLink = ({
   }
 
   return (
-    <Link href={link} className={className} {...props}>
+    <A as={Link} href={link} className={className} {...props}>
       <a>{linkText || children || page.title}</a>
-    </Link>
+    </A>
   )
 }
 
@@ -48,7 +49,7 @@ export const ExternalLink = ({ link, className, children, ...props }) => {
   }
 
   return (
-    <a
+    <A
       title={title}
       href={href}
       className={className}
@@ -56,7 +57,7 @@ export const ExternalLink = ({ link, className, children, ...props }) => {
       {...props}
     >
       {linkText || children || href}
-    </a>
+    </A>
   )
 }
 

@@ -18,7 +18,6 @@ import Footer from '../components/Footer'
 import { SanityProvider } from '../components/context/sanityContext'
 import { AppProvider } from 'components/context/appContext'
 import useAppContext from '@heydays/useAppContext'
-// import SvgFilter from 'components/SvgFilter'
 
 function MyApp(props) {
   return (
@@ -46,7 +45,6 @@ const Inner = ({ Component, pageProps }) => {
         <Component {...pageProps} />
       </AnimatePresence>
       <Footer />
-      {/* <SvgFilter /> */}
     </ThemeProvider>
   )
 }

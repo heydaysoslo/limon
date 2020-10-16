@@ -35,12 +35,11 @@ export const globalTypeStyle = ({ theme }) => css`
 
   a {
     font-family: ${theme.fontFamily.serif};
-    cursor: pointer;
-    position: relative;
     text-decoration: none;
-    color: blue;
-    &:hover {
-      color: deeppink;
+    color: currentColor;
+    &:hover,
+    &:visited {
+      color: currentColor;
     }
   }
 

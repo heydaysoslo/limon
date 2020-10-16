@@ -44,36 +44,35 @@ export const spacingUnit = {
 }
 
 export const responsiveSpacing = {
-  xs: {
-    xs: remSize(5),
-    lg: remSize(10)
+  container: {
+    lg: '5rem',
+    md: 'lg',
+    xs: remSize(10)
   },
-  sm: {
-    xs: remSize(10),
-    lg: remSize(15)
-  },
-  md: {
-    xs: remSize(15),
-    lg: 'lg'
+  gutter: {
+    lg: 'gutter',
+    xs: 'md'
   },
   lg: {
-    xs: 'lg',
-    lg: '12rem'
+    xs: 'lg'
+  },
+  md: {
+    lg: 'lg',
+    xs: remSize(15)
+  },
+  pixel: {
+    xs: '1px'
   },
   section: {
     xs: remSize(100)
   },
-  gutter: {
-    xs: 'md',
-    lg: 'gutter'
+  sm: {
+    lg: remSize(15),
+    xs: remSize(10)
   },
-  container: {
-    xs: '50px',
-    md: 'lg',
-    lg: '5vw'
-  },
-  pixel: {
-    xs: '1px'
+  xs: {
+    lg: remSize(10),
+    xs: remSize(5)
   }
 }
 
@@ -87,39 +86,38 @@ export const fontFamily = {
   serif: `'Venus', times, serif`
 }
 
-const fontDefs = {
-  xs: '16px/1.2'
-}
-
 export const responsiveFonts = {
-  small: fontDefs.xs,
   body: {
-    xs: fontDefs.xs,
-    lg: '36px/1.2'
-  },
-  title: {
-    xs: fontDefs.xs,
-    lg: '24px/1.2'
+    xs: '28px/1.2',
+    md: '36px/1.2',
+    lg: '68px/1.2'
   },
   display: {
     xs: 'clamp(50px, 5vw, 200px)/1.2'
   },
+  h1: {
+    lg: '60px/1.2',
+    xs: '40px/50px'
+  },
+  h2: {
+    lg: '48px/1.2',
+    md: '36px/1.2',
+    xs: '28px/1.2'
+  },
+  h3: {
+    xs: '24px/1.2'
+  },
+  small: {
+    xs: '20px/1.2',
+    md: '28px/1.2'
+  },
   superLarge: {
     xs: 'clamp(50px, 10vw, 400px)/1.2'
   },
-  h1: {
-    xs: {
-      size: '40px/50px'
-    },
-    lg: '60px/1.2'
-  },
-  h2: {
-    xs: '24px/1.2',
-    lg: '40px/1.2'
-  },
-  h3: {
-    xs: fontDefs.xs,
-    lg: '24px/1.2'
+  title: {
+    lg: '48px/1.2',
+    md: '36px/1.2',
+    xs: '28px/1.2'
   }
 }
 
