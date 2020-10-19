@@ -1,5 +1,5 @@
 import { utcToZonedTime } from 'date-fns-tz'
-import { formatDistance, getDay, isWithinInterval } from 'date-fns'
+import { formatDistance, isWithinInterval } from 'date-fns'
 
 const WEEKDAYS = [
   'sunday',
