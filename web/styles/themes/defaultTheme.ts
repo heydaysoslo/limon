@@ -64,7 +64,8 @@ export const responsiveSpacing = {
     xs: '1px'
   },
   section: {
-    xs: remSize(100)
+    xs: remSize(100),
+    lg: remSize(200)
   },
   sm: {
     lg: remSize(15),
@@ -90,19 +91,20 @@ export const responsiveFonts = {
   body: {
     xs: '28px/1.2',
     md: '36px/1.2',
-    lg: '68px/1.2'
+    lg: '48px/1.2'
   },
   display: {
     xs: 'clamp(50px, 5vw, 200px)/1.2'
   },
   h1: {
-    lg: '60px/1.2',
-    xs: '40px/50px'
+    xs: '40px/50px',
+    lg: '60px/1.2'
   },
   h2: {
-    lg: '48px/1.2',
+    xs: '28px/1.2',
     md: '36px/1.2',
-    xs: '28px/1.2'
+    lg: '48px/1.2',
+    xl: '56px/1.2'
   },
   h3: {
     xs: '24px/1.2'

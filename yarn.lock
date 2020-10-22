@@ -10326,9 +10326,10 @@ same-origin@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/same-origin/-/same-origin-0.1.1.tgz#c2287d3192577df517acbbd6d1451a9c3c3914f5"
 
-sanity-plugin-asset-source-cloudinary-test@^0.0.19:
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/sanity-plugin-asset-source-cloudinary-test/-/sanity-plugin-asset-source-cloudinary-test-0.0.19.tgz#2570f4c1c822f1541a9f67b388cf8eae0edf7a4a"
+sanity-plugin-asset-source-cloudinary-test@^0.0.20:
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/sanity-plugin-asset-source-cloudinary-test/-/sanity-plugin-asset-source-cloudinary-test-0.0.20.tgz#4494e3d017e77f6d2f7a618fbcb9171ffd32aed4"
+  integrity sha512-Z20daodLjy/k7RZHLRrlctxfTzQlLOhZR5+do+QVoJ/UEnim5GbYmOGOblWjOPr9O/uCo50EHRPZjqbyTeJkug==
   dependencies:
     "@sanity/react-hooks" "^1.149.16"
     "@sanity/uuid" "^1.149.16"

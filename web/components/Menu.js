@@ -2,7 +2,7 @@ import AnimateInView from '@heydays/animation/AnimateInView'
 import Button from '@heydays/Button'
 import CloudinaryMediaResolver from '@heydays/CloudinaryMediaResolver'
 import Container from '@heydays/Container'
-import { H2 } from '@heydays/Typography'
+import { P } from '@heydays/Typography'
 import { useRouter } from 'next/router'
 import React from 'react'
 import styled, { css, useTheme } from 'styled-components'
@@ -48,17 +48,15 @@ const Menu = ({ className, foodMenu }) => {
                     <AnimateInView key={item._key} initial={{ zIndex: -1 }}>
                       <li className="item">
                         {item?.title && (
-                          <H2 as="h3" className="item__header">
+                          <P as="h2" className="item__header">
                             {item.title}
-                          </H2>
+                          </P>
                         )}
                         {item?.description && (
                           <Editor blocks={item.description} />
                         )}
                         {item?.price && (
-                          <H2 as="p" className="item__price">
-                            {item.price},-
-                          </H2>
+                          <P className="item__price">{item.price},-</P>
                         )}
                       </li>
                     </AnimateInView>
@@ -117,7 +115,7 @@ export default styled(Menu)(
       &__header {
         position: sticky;
         top: calc(var(--header-height) - 1px);
-        z-index: 1;
+        z-index: ${t.elevation[3]};
         background: ${`linear-gradient(180deg, ${
           t.colors.background
         } 60%, ${t.color.rgba(t.colors.background, 0.01)})`};

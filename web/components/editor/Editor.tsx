@@ -141,6 +141,7 @@ export default styled(Editor)(
     }
     p {
       ${theme.spacing.xs('mt')};
+      max-width: 35ch;
     }
 
     .Editor__blocks > *:first-child {

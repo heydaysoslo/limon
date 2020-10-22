@@ -66,9 +66,11 @@ const Header = ({ className }) => {
 
 const Wrapper = styled(motion.div)(
   ({ theme }) => css`
+    position: relative;
     width: 100%;
     height: 100vh;
     background-color: ${theme.color.rgba(theme.colors.background, 0.9)};
+    z-index: ${theme.elevation[4]};
     background-image: ${`radial-gradient(${
       theme.colors.background
     } 30%, ${theme.color.rgba(theme.colors.background, 0.01)})`};
@@ -89,12 +91,29 @@ export default styled(Header)(
     width: 100%;
     background: ${theme.colors.background};
 
+    &:after {
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      left: 0;
+      top: 100%;
+      content: '';
+      display: inline-block;
+      width: 100%;
+      ${theme.spacing.lg('height', { multiplier: 2 })};
+      background: ${`linear-gradient(180deg, ${
+        theme.colors.background
+      } 1%, ${theme.color.rgba(theme.colors.background, 0.01)})`};
+    }
+
     .item {
       width: 110px;
 
       &:first-of-type {
         display: flex;
         align-items: flex-end;
+        position: relative;
+        z-index: ${theme.elevation[3]};
       }
 
       &:nth-of-type(2) {

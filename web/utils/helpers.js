@@ -101,7 +101,7 @@ export const createImage = (
   newCtx.textAlign = 'center'
   if (withBorder) {
     newCtx.strokeStyle = color
-    newCtx.lineWidth = 3
+    newCtx.lineWidth = Math.max(window.innerWidth / 100, 3)
     newCtx.strokeRect(0, 0, newDrawing.width, newDrawing.height)
     newCtx.fillText(
       string,

@@ -5,7 +5,10 @@ import useSanity from '@heydays/useSanity'
 import Editor from './editor'
 import useInterval from '@heydays/useInterval'
 import { AnimatePresence, motion } from 'framer-motion'
-import checkIfStoreIsOpen, { getRemainingTime } from 'utils/openingHours'
+import checkIfStoreIsOpen, {
+  getRemainingTime,
+  getClosingHour
+} from 'utils/openingHours'
 import useAppContext from '@heydays/useAppContext'
 
 const OpeningHours = ({ className }) => {
@@ -48,8 +51,11 @@ const OpeningHours = ({ className }) => {
       >
         {isStoreOpen === null && 'Opening hours'}
         {typeof isStoreOpen === 'boolean' &&
-          (isStoreOpen ? 'Open for ' : 'Opening in ')}
-        {remainingTime}
+          isStoreOpen &&
+          `Open until ${getClosingHour(data?.companyInfo?.openingHoursData)}`}
+        {typeof isStoreOpen === 'boolean' &&
+          !isStoreOpen &&
+          `Opening in ${remainingTime}`}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -94,7 +100,7 @@ export default styled(OpeningHours)(
     .info-table {
       position: absolute;
       z-index: -1;
-      ${t.spacing.md('px')};
+      ${t.spacing.sm('px')};
       ${t.spacing.lg('pb')};
       ${t.spacing.sm(['top', 'left'], { negative: true })};
       background: ${t.colors.text};

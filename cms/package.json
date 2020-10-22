@@ -35,7 +35,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-select": "^3.0.8",
-    "sanity-plugin-asset-source-cloudinary-test": "^0.0.19",
+    "sanity-plugin-asset-source-cloudinary-test": "^0.0.20",
     "sanity-plugin-dashboard-widget-document-list": "^0.0.8",
     "sanity-plugin-dashboard-widget-netlify": "^1.0.1",
     "sanity-plugin-tabs": "^1.1.2",

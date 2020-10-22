@@ -2,6 +2,31 @@ import React, { useRef, useLayoutEffect, useState, useMemo } from 'react'
 import styled, { useTheme } from 'styled-components'
 import useMediaQuery from '../hooks/useMediaQuery'
 import useWindowSize from '../hooks/useWindowSize'
+import { breakpoints } from '../../styles/themes/defaultTheme'
+import { aspect } from 'types'
+
+type Props = {
+  /**
+   * Takes the aspect ratio as a string, number or responsive object.
+   *
+   * @note String must correspond to a aspect ratio in the defaultTheme eg. portrait.
+   *
+   * @example ```jsx
+   * <AspectContainer aspect={{xs: 'portrait', md: 2.4}} />
+   * <AspectContainer aspect="portrait" />
+   * ```
+   */
+  aspect: aspect
+  /**
+   * This ensures that content won't be cut off if it's larger than the container.
+   */
+  preventOverflow?: boolean
+  className?: string
+  /**
+   * Set a desired max height.
+   */
+  maxHeight?: number
+}
 
 const StyledAspectContainer = styled.div`
   position: relative;
@@ -20,8 +45,7 @@ const StyledAspectContainer = styled.div`
   }
 `
 
-const AspectContainer = ({
-  aspects = { xs: 1 },
+const AspectContainer: React.FC<Props> = ({
   aspect,
   preventOverflow = true,
   maxHeight,
@@ -30,36 +54,43 @@ const AspectContainer = ({
 }) => {
   const media = useMediaQuery()
   const { innerHeight, innerWidth } = useWindowSize({ debounce: 100 })
-  const contentEl = useRef(null)
-  const wrapperEl = useRef(null)
+  const contentEl = useRef<HTMLDivElement>(null)
+  const wrapperEl = useRef<HTMLDivElement>(null)
   const [currentRatio, setCurrentRatio] = useState(1)
-  const { breakpoints } = useTheme()
+  const theme = useTheme()
 
+  const resolveAspect = (aspect: Props['aspect'], bp: string) => {
+    switch (typeof aspect) {
+      case 'string':
+        return theme.aspect[aspect]
+      case 'number':
+        return aspect
+      default:
+        // assumes object
+        let prevRatio = aspect[Object.keys(breakpoints)[0]]
+        if (aspect[bp] !== undefined) {
+          return aspect[bp]
+        } else {
+          return prevRatio
+        }
+    }
+  }
+
+  // Compute a full set of ratios based on breakpoints
   const computeRatios = () => {
     let calculatedRatios = {}
-    let prevRatio = aspects[Object.keys(breakpoints)[0]]
     for (const bp of Object.keys(breakpoints)) {
-      // If "ratio" and not "ratios" is set, override all values with "ratio"
-      if (aspect) {
-        calculatedRatios[bp] = aspect
-      } else {
-        if (aspects[bp] !== undefined) {
-          calculatedRatios[bp] = aspects[bp]
-          prevRatio = aspects[bp]
-        } else {
-          calculatedRatios[bp] = prevRatio
-        }
-      }
+      calculatedRatios[bp] = resolveAspect(aspect, bp)
     }
     return calculatedRatios
   }
 
   // Create a memo to prevent unwanted recalculation of ratios
-  const memoizedRatios = useMemo(computeRatios, [aspect, aspects])
+  const memoizedRatios = useMemo(computeRatios, [aspect])
 
   // Prevent container from being smaller than it's content
   const setWrapperMinHeight = () => {
-    if (contentEl) {
+    if (contentEl?.current && wrapperEl?.current) {
       // Unset the container min height to make sure we get correct actual height
       // useState(minHeight, setMinHeight) is NOT an option
       wrapperEl.current.style.minHeight = ''
@@ -75,7 +106,7 @@ const AspectContainer = ({
 
   // Calculate ratio based on breakpoint
   const calculateNewRatio = () => {
-    if (memoizedRatios[media] !== undefined) {
+    if (memoizedRatios?.[media] !== undefined) {
       setCurrentRatio(memoizedRatios[media])
     }
   }
@@ -101,11 +132,10 @@ const AspectContainer = ({
         maxHeight
       }}
       ref={wrapperEl}
-      hasRatio={currentRatio !== false}
     >
       <div
         style={{
-          paddingTop: currentRatio !== false ? `${currentRatio * 100}%` : null
+          paddingTop: currentRatio && `${currentRatio * 100}%`
         }}
       />
       {children && (

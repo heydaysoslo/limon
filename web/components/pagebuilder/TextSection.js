@@ -1,12 +1,14 @@
+import Container from '@heydays/Container'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import Editor from '../editor/'
 
-const TextSection = ({ className, body }) => {
+const TextSection = ({ className, body, themeName }) => {
+  const Wrapper = themeName === 'inverted' ? Container : 'div'
   return (
-    <div className={className}>
+    <Wrapper className={className}>
       <Editor blocks={body} />
-    </div>
+    </Wrapper>
   )
 }
 
@@ -23,6 +25,9 @@ export default styled(TextSection)(({ theme, themeName, alignment }) => {
         `}
     ${alignment === 'center' &&
       css`
+        * {
+          margin: 0 auto;
+        }
         text-align: center;
       `}
   `

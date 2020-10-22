@@ -27,7 +27,8 @@ const shorthandDefs = {
   bottom: ['bottom'],
   left: ['left'],
   right: ['right'],
-  height: ['height']
+  height: ['height'],
+  width: ['width']
 } as const
 
 /**

@@ -1,5 +1,5 @@
 import { utcToZonedTime } from 'date-fns-tz'
-import { formatDistance, isWithinInterval } from 'date-fns'
+import { formatDistance, isWithinInterval, format } from 'date-fns'
 
 const WEEKDAYS = [
   'sunday',
@@ -45,6 +45,12 @@ const getOpeningsHours = (openingHours: openingHours) => {
     opening: openingTime,
     closing: closingTime
   }
+}
+
+export const getClosingHour = (openingHours: openingHours) => {
+  if (!openingHours) return null
+  const { closing } = getOpeningsHours(openingHours)
+  return format(closing, 'HH:mm')
 }
 
 const checkIfStoreIsOpen = (openingHours: openingHours) => {

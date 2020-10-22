@@ -8,6 +8,9 @@ import Grid, { GridItem } from '@heydays/Grid'
 import Spacer from '@heydays/Spacer'
 import Editor from './editor'
 import { P } from '@heydays/Typography'
+import Stack from '@heydays/Stack'
+import AspectContainer from '@heydays/AspectContainer'
+import Center from '@heydays/Center'
 
 const Footer = ({ className }) => {
   const sanity = useSanity()
@@ -55,7 +58,7 @@ const Footer = ({ className }) => {
           </GridItem>
           <GridItem span={{ xs: 12, md: 7 }}>
             {sanity?.companyInfo?.social && (
-              <div className="social">
+              <Stack direction="row">
                 {Object.keys(sanity.companyInfo.social)
                   .filter(key => key !== '_type')
                   .map(key => (
@@ -68,11 +71,15 @@ const Footer = ({ className }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Icon name={key} modifiers="small" />
+                        <AspectContainer aspect="square">
+                          <Center>
+                            <Icon name={key} modifiers="small" />
+                          </Center>
+                        </AspectContainer>
                       </a>
                     </Link>
                   ))}
-              </div>
+              </Stack>
             )}
           </GridItem>
         </Grid>
