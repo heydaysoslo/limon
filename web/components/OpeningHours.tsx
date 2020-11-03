@@ -50,9 +50,14 @@ const OpeningHours = ({ className }) => {
         style={{ color: isOpen ? theme.colors.background : theme.colors.text }}
       >
         {isStoreOpen === null && 'Opening hours'}
-        {typeof isStoreOpen === 'boolean' &&
-          isStoreOpen &&
-          `Open until ${getClosingHour(data?.companyInfo?.openingHoursData)}`}
+        {typeof isStoreOpen === 'boolean' && isStoreOpen && (
+          <span>
+            Open{' '}
+            <span className="help-text">
+              until {getClosingHour(data?.companyInfo?.openingHoursData)}
+            </span>
+          </span>
+        )}
         {typeof isStoreOpen === 'boolean' &&
           !isStoreOpen &&
           `Opening in ${remainingTime}`}
@@ -95,6 +100,12 @@ export default styled(OpeningHours)(
     button {
       ${t.fonts.small()};
       line-height: 1;
+    }
+
+    .help-text {
+      ${t.bp.only.xs} {
+        display: none;
+      }
     }
 
     .info-table {
