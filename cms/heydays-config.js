@@ -14,7 +14,7 @@ export default {
    */
   previewUrl: {
     production: 'https://limon.heydays.vercel.app/preview/',
-    dev: 'http://localhost:3000/preview/'
+    development: 'http://localhost:3000/preview/'
   },
   /**
    * Used in Preview comp

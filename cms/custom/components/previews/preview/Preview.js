@@ -24,15 +24,9 @@ class Preview extends React.PureComponent {
   render() {
     const { displayed } = this.props.document
 
-    const isLocal =
-      window.location.host.includes('localhost') ||
-      window.location.host.includes('.local')
-
-    const url = `${
-      isLocal
-        ? heydaysConfig.previewUrl.production
-        : heydaysConfig.previewUrl.dev
-    }${displayed._id}?access_token=${heydaysConfig.access_token}`
+    const url = `${heydaysConfig.previewUrl[process.env.NODE_ENV]}${
+      displayed._id
+    }?access_token=${heydaysConfig.access_token}`
 
     if (!displayed._id) return null
 
