@@ -47,9 +47,8 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
 
       engine = Engine.create({})
       setMatterEngine(engine)
-      const rn = random(-0.1, 0.1)
-      engine.world.gravity.x = 1
-      engine.world.gravity.y = 1
+      engine.world.gravity.x = random(-0.2, 0.2, { float: true })
+      engine.world.gravity.y = random(-0.2, 0.2, { float: true })
 
       const { width, height } = wrapper.current.getBoundingClientRect()
 
