@@ -18,10 +18,13 @@ export const AppProvider = ({ children }) => {
         actions: {
           toggleMenu: condition => {
             const toggledState = !state.isMenuOpen
-            setOverflowHidden(condition ? condition : toggledState)
+            setOverflowHidden(
+              typeof condition === 'boolean' ? condition : toggledState
+            )
             setState({
               ...state,
-              isMenuOpen: condition ? condition : toggledState
+              isMenuOpen:
+                typeof condition === 'boolean' ? condition : toggledState
             })
           },
           setIsStoreOpen: condition => {
