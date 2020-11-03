@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styled, { css } from 'styled-components'
 import Spacer, { SpacerProps } from './Spacer'
+import { nanoid } from 'nanoid'
+
+const ID = nanoid()
 
 type Props = {
   className?: string
@@ -56,11 +59,11 @@ const Stack: React.FC<Props> = ({
         />
       )}
       {Array.isArray(children)
-        ? children.map((child, i) => (
-            <>
+        ? children.flat(1).map((child, i) => (
+            <Fragment key={`${ID}-${i}`}>
               {child}
               {i !== children.length - 1 && <Spacer size={space} />}
-            </>
+            </Fragment>
           ))
         : children}
       {spaceEndsEnd && (
