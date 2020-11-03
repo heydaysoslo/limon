@@ -114,9 +114,9 @@ export default () =>
       // defined the structure above
       ...S.documentTypeListItems().filter(hiddenDocTypes),
       S.divider(),
-      createDocsList('designTokens', {
-        withPreviews: true
-      }),
+      // createDocsList('designTokens', {
+      //   withPreviews: true
+      // }),
       createSingleton('companyInfo', {
         withPreviews: false,
         icon: () => <EmojiIcon>🏢</EmojiIcon>
