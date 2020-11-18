@@ -3,8 +3,8 @@ import Head from 'next/head'
 import { ThemeProvider } from 'styled-components'
 import { AnimatePresence } from 'framer-motion'
 
-import 'lazysizes/plugins/respimg/ls.respimg.js'
-import 'lazysizes/plugins/attrchange/ls.attrchange.js'
+// import 'lazysizes/plugins/respimg/ls.respimg.js'
+// import 'lazysizes/plugins/attrchange/ls.attrchange.js'
 import 'lazysizes'
 import 'default-passive-events'
 
