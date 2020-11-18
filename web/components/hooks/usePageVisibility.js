@@ -4,7 +4,8 @@ import {
   getIsDocumentHidden
 } from 'utils/browserVisibility'
 
-export function usePageVisibility() {
+const usePageVisibility = () => {
+  if (typeof document === 'undefined') return null
   const [isVisible, setIsVisible] = React.useState(getIsDocumentHidden())
   const onVisibilityChange = () => setIsVisible(getIsDocumentHidden())
   React.useEffect(() => {
@@ -16,3 +17,5 @@ export function usePageVisibility() {
   })
   return isVisible
 }
+
+export default usePageVisibility

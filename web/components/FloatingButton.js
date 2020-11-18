@@ -1,13 +1,14 @@
-import React, { useRef, useState, useEffect, useLayoutEffect } from 'react'
-import Matter, { Body } from 'matter-js'
+import React, { useRef, useState, useEffect } from 'react'
+import Matter from 'matter-js'
 import styled, { css } from 'styled-components'
+import dynamic from 'next/dynamic'
 
 import useInterval from '@heydays/useInterval'
 import useWindowSize from '@heydays/useWindowSize'
 import { random, createImage } from '../utils/helpers'
 import { useTheme } from 'styled-components'
 import { useInView } from 'react-intersection-observer'
-import { usePageVisibility } from '@heydays/usePageVisibility'
+import usePageVisibility from '@heydays/usePageVisibility'
 
 const FloatingButton = ({ className, color, children, onClick }) => {
   const isPageVisible = usePageVisibility()

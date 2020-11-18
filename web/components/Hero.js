@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components'
 import useIsFontLoaded from './hooks/useIsFontLoaded'
 import dynamic from 'next/dynamic'
 import { useInView } from 'react-intersection-observer'
-import { usePageVisibility } from '@heydays/usePageVisibility'
 import useSanity from '@heydays/useSanity'
+import usePageVisibility from '@heydays/usePageVisibility'
 
 const Scene = dynamic(() => import('./Scene'))
 
