@@ -68,7 +68,10 @@ export const getImageSrc = (image, aspectRatio) => {
       https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_512/${public_id} 512w,
       https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_768/${public_id} 768w,
       https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_1024/${public_id} 1024w,
-      https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_1280/${public_id} 1280w
+      https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_1280/${public_id} 1280w,
+      https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_1700/${public_id} 1700w,
+      https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_2212/${public_id} 2212w,
+      https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_3000/${public_id} 3000w,
     `,
     src: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto,w_500,h_500/${public_id}`,
     noscript: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${transformations},w_1280/${public_id}`
