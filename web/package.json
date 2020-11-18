@@ -17,6 +17,7 @@
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.0.10",
     "default-passive-events": "^2.0.0",
+    "favicons-webpack-plugin": "^4.2.0",
     "flickity": "^2.2.1",
     "framer-motion": "^2.4.2",
     "hamburger-react": "^2.2.0",
