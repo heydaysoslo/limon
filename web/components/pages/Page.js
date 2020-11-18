@@ -2,17 +2,12 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 import Pagebuilder from '../pagebuilder/Pagebuilder'
-import { H1, P } from '@heydays/Typography'
 import Container from '@heydays/Container'
 
 const Page = ({ className, title, content, pagebuilder, ...props }) => {
   return (
     <div className={className}>
       <Container>
-        <header className="Page__header">
-          <P>Page</P>
-          {title && <H1>{title}</H1>}
-        </header>
         {pagebuilder && (
           <div className="Page__content">
             {pagebuilder?.sections && (

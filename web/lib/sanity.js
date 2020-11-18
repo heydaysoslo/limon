@@ -51,6 +51,26 @@ export const getFrontpage = () => {
   return client.fetch(query).then(res => res[0].frontpage)
 }
 
+export const getPage = slug => {
+  const query = `
+  *[slug.current == $slug] {
+    ...,
+    ${PAGEBUILDER}
+    }
+  `
+  return client.fetch(query, { slug }).then(res => res[0])
+}
+
+export const getPages = () => {
+  const query = `
+  *[_type == 'page'] {
+    ...,
+    ${PAGEBUILDER}
+    }
+  `
+  return client.fetch(query).then(res => res)
+}
+
 export const getSettings = () => {
   const query = `*[_type == 'siteSettings']{
     ...,
