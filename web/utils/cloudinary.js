@@ -1,6 +1,6 @@
 import { aspect } from 'styles/themes/defaultTheme'
 
-export const CLOUDINARY_CLOUD_NAME = 'heydaysoslo'
+export const CLOUDINARY_CLOUD_NAME = 'nansen-co-as'
 
 export const cldVideoFormats = [
   {
