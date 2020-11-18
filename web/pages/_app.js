@@ -18,6 +18,7 @@ import Footer from '../components/Footer'
 import { SanityProvider } from '../components/context/sanityContext'
 import { AppProvider } from 'components/context/appContext'
 import useAppContext from '@heydays/useAppContext'
+import Favicon from 'components/Favicon'
 
 function MyApp(props) {
   return (
@@ -33,6 +34,7 @@ const Inner = ({ Component, pageProps }) => {
   const { state } = useAppContext()
   return (
     <ThemeProvider theme={state.isStoreOpen ? theme : darkTheme}>
+      <Favicon />
       <Head>
         <link href="/fonts/fonts.css" rel="stylesheet" />
       </Head>
