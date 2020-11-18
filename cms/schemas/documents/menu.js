@@ -19,7 +19,7 @@ export default {
       type: 'array',
       of: [
         { type: 'link' },
-        { type: 'internalLink' },
+        // { type: 'internalLink' },
         {
           name: 'scrollLink',
           title: 'scrollLink',
