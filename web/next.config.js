@@ -23,7 +23,7 @@ const nextConfig = {
 
 const withSvgr = require('next-svgr')
 
-module.exports = withPlugins([
+module.exports = withPlugins(
   [
     [
       withSvgr,
@@ -36,4 +36,4 @@ module.exports = withPlugins([
     withBundleAnalyzer
   ],
   nextConfig
-])
+)
