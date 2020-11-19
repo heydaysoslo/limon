@@ -58,9 +58,12 @@ const OpeningHours = ({ className }) => {
             </span>
           </span>
         )}
-        {typeof isStoreOpen === 'boolean' &&
-          !isStoreOpen &&
-          `Opening in ${remainingTime}`}
+        {typeof isStoreOpen === 'boolean' && !isStoreOpen && (
+          <span>
+            <div className="show-only-xs">Closed</div>
+            <span className="help-text">Opening in {remainingTime}</span>
+          </span>
+        )}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -105,6 +108,13 @@ export default styled(OpeningHours)(
     .help-text {
       ${t.bp.only.xs} {
         display: none;
+      }
+    }
+
+    .show-only-xs {
+      display: none;
+      ${t.bp.only.xs} {
+        display: block;
       }
     }
 
