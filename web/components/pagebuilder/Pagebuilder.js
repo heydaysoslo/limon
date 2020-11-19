@@ -6,16 +6,16 @@ import Stagger from '@heydays/animation/Stagger'
 import ThemeResolver from '@heydays/ThemeResolver'
 
 const sectionTypes = {
-  section: dynamic(() => import('pagebuilder/Section.js')),
-  cardSection: dynamic(() => import('pagebuilder/CardSection.js')),
-  textSection: dynamic(() => import('pagebuilder/TextSection.js')),
-  imageSection: dynamic(() => import('pagebuilder/FullImageSection.js')),
-  textImageSplit: dynamic(() => import('pagebuilder/TextImageSplit.js')),
-  carousel: dynamic(() => import('pagebuilder/TextImageSplit.js')),
-  tabs: dynamic(() => import('elements/Tabs.js')),
-  videoSection: dynamic(() => import('pagebuilder/VideoSection')),
-  menu: dynamic(() => import('Menu.js')),
-  scrollAnchor: dynamic(() => import('pagebuilder/ScrollAnchor'))
+  section: dynamic(() => import('./Section.js')),
+  cardSection: dynamic(() => import('./CardSection.js')),
+  textSection: dynamic(() => import('./TextSection.js')),
+  imageSection: dynamic(() => import('./FullImageSection.js')),
+  textImageSplit: dynamic(() => import('./TextImageSplit.js')),
+  carousel: dynamic(() => import('./TextImageSplit.js')),
+  tabs: dynamic(() => import('../elements/Tabs.js')),
+  videoSection: dynamic(() => import('./VideoSection')),
+  menu: dynamic(() => import('../Menu.js')),
+  scrollAnchor: dynamic(() => import('./ScrollAnchor'))
 }
 
 const StyledPageBuilder = styled.div(
