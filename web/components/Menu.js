@@ -73,7 +73,9 @@ const Menu = ({ className, foodMenu }) => {
           </div>
         )}
         <div className="actions">
-          <FloatingButton onClick={() => router.push(`http://weorder.com`)}>
+          <FloatingButton
+            onClick={() => router.push(`https://ninito.no/shop/limon-h27`)}
+          >
             ORDER
           </FloatingButton>
         </div>
