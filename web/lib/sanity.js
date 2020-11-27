@@ -45,8 +45,14 @@ export const getFrontpage = () => {
     frontpage->{
       ...,
       ${PAGEBUILDER}
+    },
+    siteName,
+    siteUrl,
+    locale,
+    seo {
+      ...
     }
-    }
+  }
   `
   return client.fetch(query).then(res => res[0].frontpage)
 }
