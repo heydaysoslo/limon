@@ -3,7 +3,7 @@ import Head from 'next/head'
 const SEO = ({ seo }) => {
   return (
     <Head>
-      <title>{seo.title}</title>
+      <title>{seo?.title}</title>
       <meta name="robots" content="index, follow" />
       <meta charset="UTF-8" />
       <meta name="description" content={seo?.description} />
