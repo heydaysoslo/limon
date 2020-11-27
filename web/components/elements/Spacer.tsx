@@ -23,12 +23,12 @@ const Spacer: React.FC<SpacerProps> = ({ className }) => {
 
 export default styled(Spacer)(({ theme, size = 'md', custom }) => {
   let showSpacing = false
-  if (
-    process.env.NODE_ENV === 'development' &&
-    typeof document !== 'undefined'
-  ) {
-    showSpacing = document?.body?.classList?.contains?.('showSpacing')
-  }
+  // if (
+  //   process.env.NODE_ENV === 'development' &&
+  //   typeof document !== 'undefined'
+  // ) {
+  //   showSpacing = document?.body?.classList?.contains?.('showSpacing')
+  // }
   return css`
     ${!custom && theme.spacing[size](['height', 'width'])};
     ${custom &&
