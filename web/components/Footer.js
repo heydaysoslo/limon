@@ -25,7 +25,7 @@ const Footer = ({ className }) => {
             {sanity?.companyInfo?.phone && (
               <p>Tlf: {sanity.companyInfo.phone}</p>
             )}
-            <Spacer size="md" />
+            {/* <Spacer size="md" /> */}
             {sanity?.companyInfo?.address && (
               <>
                 {sanity?.companyInfo?.address?.streetAddress && (
