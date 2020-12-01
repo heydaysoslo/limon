@@ -18,7 +18,7 @@ export type SpacerProps = {
 }
 
 const Spacer: React.FC<SpacerProps> = ({ className }) => {
-  return <div className={className}></div>
+  return <div className={className} />
 }
 
 export default styled(Spacer)(({ theme, size = 'md', custom }) => {
