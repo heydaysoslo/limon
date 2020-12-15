@@ -7,10 +7,6 @@
     "build": "cd web && yarn build",
     "cms": "yarn workspace cms start"
   },
-  "workspaces": [
-    "cms",
-    "web"
-  ],
   "devDependencies": {},
   "dependencies": {}
 }

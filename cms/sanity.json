@@ -20,13 +20,12 @@
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
-    "dashboard-widget-structure-menu",
-    "dashboard-widget-document-list",
-    "dashboard-widget-netlify",
     "@sanity/vision",
     "@sanity/production-preview",
     "tabs",
-    "asset-source-cloudinary-test"
+    "asset-source-cloudinary-test",
+    "dashboard-widget-vercel",
+    "@sanity/dashboard"
   ],
   "parts": [
     {
@@ -52,6 +51,10 @@
     {
       "implements": "part:@sanity/base/document-actions/resolver",
       "path": "./resolveDocumentActions.js"
+    },
+    {
+      "implements": "part:@sanity/dashboard/config",
+      "path": "dashboardConfig.js"
     }
   ]
 }

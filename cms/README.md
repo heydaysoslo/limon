@@ -1,5 +1,12 @@
 # sanity-gatsby-portfolio-studio
 
+## Vercel
+
+```
+curl "https://api.vercel.com/v1/projects/limon?teamId=team_zGTjOsWpkLuGXl4jqvdn2weZ" \
+  -H "Authorization: Bearer <TOKEN>" >> res.json
+```
+
 ## Commands
 
 ### `yarn export`
