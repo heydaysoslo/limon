@@ -120,6 +120,7 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
             )
       })
       const newBodies = images.map((word, i) => {
+        const angle = random(-Math.PI / 8, Math.PI / 8, { float: true })
         return Bodies.rectangle(
           random(100, width - 100),
           random(100, height - 100),
@@ -127,7 +128,7 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
           word.dimension.height,
           {
             restitution: 0.5,
-            angle: random(-Math.PI / 8, Math.PI / 8),
+            angle,
             words: {
               word: words[i],
               image: word.image,
