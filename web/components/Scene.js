@@ -127,6 +127,7 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
           word.dimension.height,
           {
             restitution: 0.5,
+            angle: random(-Math.PI / 8, Math.PI / 8),
             words: {
               word: words[i],
               image: word.image,
@@ -137,7 +138,6 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
                 texture: word.image,
                 xScale: 1,
                 yScale: 1,
-                rotate: random(-50, 50),
               },
             },
           }
