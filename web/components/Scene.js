@@ -25,7 +25,7 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
       matterEngine.world.gravity.x = random(-0.2, 0.2, { float: true })
       matterEngine.world.gravity.y = random(-0.2, 0.2, { float: true })
     }
-  }, 2000)
+  }, 1000)
 
   useEffect(() => {
     let engine
@@ -47,8 +47,8 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
 
       engine = Engine.create({})
       setMatterEngine(engine)
-      engine.world.gravity.x = random(-0.2, 0.2, { float: true })
-      engine.world.gravity.y = random(-0.2, 0.2, { float: true })
+      engine.world.gravity.x = Math.random > 0.5 ? -0.1 : 0.1
+      engine.world.gravity.y = Math.random > 0.5 ? -0.1 : 0.1
 
       const { width, height } = wrapper.current.getBoundingClientRect()
 
@@ -61,9 +61,9 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
           wireframes: false,
           background: 'transparent',
           enabledEvents: {
-            mousewheel: false
-          }
-        }
+            mousewheel: false,
+          },
+        },
       })
 
       Render.setPixelRatio(render, window.devicePixelRatio)
@@ -76,33 +76,37 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
         constraint: {
           stiffness: 0.2,
           render: {
-            visible: false
-          }
-        }
+            visible: false,
+          },
+        },
       })
+      const hinderPositions = [
+        { x: width / 8, y: height / 2 },
+        { x: width - width / 8, y: height / 2 },
+      ]
       const hinderSize = {
         width: 6,
-        height: 6
+        height: 6,
       }
-      const hinderOptions = angle => ({
+      const hinderOptions = (angle) => ({
         render: {
           fillStyle: 'transparent',
           strokeStyle: 'none',
-          lineWidth: 0
+          lineWidth: 0,
         },
         angle,
-        isStatic: true
+        isStatic: true,
       })
       const wallWidth = 50
       const wallOptions = {
         render: {
           fillStyle: 'transparent',
           strokeStyle: 'none',
-          lineWidth: 0
+          lineWidth: 0,
         },
-        isStatic: true
+        isStatic: true,
       }
-      const images = words.map(word => {
+      const images = words.map((word) => {
         return typeof word === 'string'
           ? createImage(
               word,
@@ -126,16 +130,16 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
             words: {
               word: words[i],
               image: word.image,
-              hoverImage: word.hoverImage
+              hoverImage: word.hoverImage,
             },
             render: {
               sprite: {
                 texture: word.image,
                 xScale: 1,
                 yScale: 1,
-                rotate: random(-50, 50)
-              }
-            }
+                rotate: random(-50, 50),
+              },
+            },
           }
         )
       })
@@ -155,18 +159,18 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
         // Right
         Bodies.rectangle(width, height / 2, wallWidth, height, wallOptions),
         // Hinders
-        !noHinders &&
+        // !noHinders &&
+        //   Bodies.rectangle(
+        //     width / 2,
+        //     height / 2,
+        //     hinderSize.width,
+        //     hinderSize.height,
+        //     hinderOptions(random(-0.4, 0.4, { float: true }))
+        //   ),
+        ...[...new Array(noHinders ? 0 : 2)].map((_, i) =>
           Bodies.rectangle(
-            width / 2,
-            height / 2,
-            hinderSize.width,
-            hinderSize.height,
-            hinderOptions(random(-0.4, 0.4, { float: true }))
-          ),
-        ...[...new Array(noHinders ? 0 : 5)].map((_, i) =>
-          Bodies.rectangle(
-            random(0, width),
-            random(0, height),
+            hinderPositions[i].x,
+            hinderPositions[i].y,
             hinderSize.width,
             hinderSize.height,
             hinderOptions(random(-0.4, 0.4, { float: true }))
@@ -174,10 +178,10 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
         ),
         ...newBodies,
         // stack,
-        mouseConstraint
+        mouseConstraint,
       ])
 
-      Matter.Events.on(mouseConstraint, 'mousedown', function(event) {
+      Matter.Events.on(mouseConstraint, 'mousedown', function (event) {
         if (mouseConstraint.body) {
           if (
             mouseConstraint?.body?.render?.sprite?.texture &&
@@ -222,13 +226,13 @@ const Scene = ({ wrapper, words, noHinders, color }) => {
       // }, 50)
       // // CreateListeners for bodies
       // Matter.Events.on(mouseConstraint, 'mousemove', handleMousemove)
-      Matter.Events.on(mouseConstraint, 'mousemove', function(event) {
+      Matter.Events.on(mouseConstraint, 'mousemove', function (event) {
         //For Matter.Query.point pass "array of bodies" and "mouse position"
         var bodies = Matter.Query.point(newBodies, event.mouse.position)
         if (engine?.world?.bodies) {
           engine.world.bodies
-            .filter(body => body !== bodies[0])
-            .map(body => {
+            .filter((body) => body !== bodies[0])
+            .map((body) => {
               if (body?.render?.sprite?.texture && body?.words?.image) {
                 event.mouse.element.style.cursor = 'auto'
                 body.render.sprite.texture = body.words.image
